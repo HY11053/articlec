@@ -15,8 +15,11 @@ class CreateBrandInfosTable extends Migration
     {
         Schema::create('brand_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('brandname')->unique()->index();
+            $table->string('brandname')->index();
             $table->text('brandinfo');
+            $table->string('type')->index();
+            $table->string('retype')->index();
+            $table->string('referer')->index();
             $table->timestamps();
         });
     }

@@ -66,4 +66,9 @@ class BrandInfoController extends Controller
         BrandInfo::findOrFail($id)->delete();
         return redirect(action('BrandInfoController@BrandInfoLists'));
     }
+
+    public function BrandSearch(Request $request){
+        $brandinfolists=BrandInfo::orderBy('id','desc')->where('brandname','like','%'.$request->brandname.'%')->paginate(100);
+        return view('admin.brandinfolists',compact('brandinfolists'));
+    }
 }

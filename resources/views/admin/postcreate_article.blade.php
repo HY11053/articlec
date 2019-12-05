@@ -4,6 +4,7 @@
     <link href="/adminlte/plugins/iCheck/all.css" rel="stylesheet">
     <link href="/adminlte/plugins/iCheck/flat/green.css" rel="stylesheet">
     <link href="/adminlte/plugins/select2/select2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <style>
         .red{color: red;}
         .select2-container--default .select2-selection--single {
@@ -105,27 +106,42 @@
                             <span class="time"><i class="fa fa-clock-o"></i> 生成结果预览,无问题后点击复制</span>
 
                             <h3 class="timeline-header"><a href="#">生成结果 |</a> create result</h3>
+                            <!-- /.box -->
 
-                            <div class="timeline-body contentarea" style="padding: 50px;">
-                              {{-- <h3> {{$createinfo->get('brandname')}}品牌介绍</h3>--}}
-                                @foreach(explode(PHP_EOL,$articleinfos) as $articleinfo)
-                                <p>{{$articleinfo}}</p>
-                                @endforeach
-                                @if(isset($articlecontents))
-                                    @foreach($articlecontents as $content_type=>$articlecontent)
-                                        <h3>{{$createinfo->get('brandname')}}{{$content_type}}</h3>
-                                        @if(isset($articlecontent->content))
-                                            @foreach(explode('@@',$articlecontent->content) as $content)
-                                                <p>{{str_replace('{}',$createinfo->get('brandname'),$content)}}</p>
-                                            @endforeach
-                                        @endif
-                                    @endforeach
-                                @endif
+
+                        <!-- /.col-->
+
+
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h3 class="box-title">Bootstrap WYSIHTML5
+                                            <small>Simple and fast</small>
+                                        </h3>
+                                        <!-- /. tools -->
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body pad">
+                                        <form>
+                                            <textarea class="textarea" placeholder="Place some text here" style="width: 100%; height: 1000px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+                                                @if($title)<h1> {{$createinfo->get('brandname')}}{{$title}}</h1>@endif
+                                                @foreach(explode(PHP_EOL,$articleinfos) as $articleinfo)
+                                                    <p>{!! $articleinfo !!}</p>
+                                                @endforeach
+                                                @if(isset($articlecontents))
+                                                    @foreach($articlecontents as $content_type=>$articlecontent)
+                                                        <h3>{{$createinfo->get('brandname')}}{{$content_type}}</h3>
+                                                        @if(isset($articlecontent->content))
+                                                            @foreach(explode('@@',$articlecontent->content) as $content)
+                                                                <p>{{str_replace('{}',$createinfo->get('brandname'),$content)}}</p>
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </textarea>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="timeline-footer">
-                                <submit class="btn btn-sm bg-maroon" onclick="getCode();" onsubmit="return false;">复制内容</submit>
-                            </div>
-                        </div>
                     </li>
                     <!-- END timeline item -->
                     <li>
@@ -153,16 +169,13 @@
         });
         $('.basic_info input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({ checkboxClass: 'icheckbox_flat-green', radioClass: 'iradio_flat-green'});
     </script>
-
+    <script src="/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
     <script>
-        function getCode() {
-            let text = document.querySelector(".contentarea").innerText;
-            let textarea = document.querySelector("#createcontent");
-            textarea.value = text; // 修改文本框的内容
-            textarea.select(); // 选中文本
-            let flag = document.execCommand("copy"); // 执行浏览器复制命令
-            flag ? alert('复制成功') : alert('复制失败') //消息提示
-        }
+        $(function () {
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
+            $('.textarea').wysihtml5()
+        })
     </script>
 @stop
 

@@ -7,6 +7,7 @@ use App\AdminModel\ArticleType;
 use App\AdminModel\BrandInfo;
 use App\AdminModel\ContentSource;
 use App\AdminModel\TitleCategory;
+use App\AdminModel\TitleSource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,8 @@ class CreateArticleController extends Controller
         $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
         $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
         $createinfo=collect(['brandname'=>$request->brandname,'typeid'=>$request->typeid,'title_typeid'=>$request->title_typeid,'content_type'=>$request->content_type]);
-        $articleinfos=strip_tags(BrandInfo::where('brandname',$request->brandname)->value('brandinfo'));
+        $articleinfos=strip_tags(BrandInfo::where('brandname',$request->brandname)->inRandomOrder()->value('brandinfo'));
+        $title=TitleSource::where('typeid',$request->title_typeid)->inRandomOrder()->value('title');
         $content_types=$request->content_type;
         $articlecontents=[];
         foreach ($content_types as $content_type){
@@ -41,7 +43,7 @@ class CreateArticleController extends Controller
                 ContentSource::where('id',$randomarticle->id)->update(['used'=>$randomarticle->used+1]);
             }
         }
-        return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','articleinfos','articlecontents','createinfo'));
+        return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','articleinfos','articlecontents','createinfo','title'));
     }
 
     public function CreateBrandArticle (){

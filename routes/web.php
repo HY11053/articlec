@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function ()
     Route::get('/brandinfo/edit/{id}','BrandInfoController@BrandInfoEdit');
     Route::put('/brandinfo/edit/{id}','BrandInfoController@PostBrandInfoEdit')->name('brandinfoedit');
     Route::get('/brandinfo/delete/{id}','BrandInfoController@Delete');
+    Route::post('/search/brand', 'BrandInfoController@BrandSearch');
     //内容分类
     Route::get('/article/types','ArticleTypeController@ArticletypeLists')->name('articletypelists');
     Route::get('/article/type/add','ArticleTypeController@ArticletypeAdd');
@@ -73,5 +74,7 @@ Route::middleware(['auth'])->group(function ()
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/create/article', 'CreateArticleController@CreateArticle');
     Route::post('/create/article', 'CreateArticleController@PostCreateArticle')->name('articlecreate');
-    Route::get('/create/brandarticle', 'CreateArticleController@CreateBrandArticle')->name('home');
+    Route::get('/create/brandarticle', 'CreateArticleController@CreateBrandArticle');
+    //品牌搜索
+    Route::post('/search/brand', 'BrandInfoController@BrandSearch');
 });

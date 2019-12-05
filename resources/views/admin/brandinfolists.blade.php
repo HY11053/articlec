@@ -21,9 +21,9 @@
                         <div class="pull-right" style="display:inline-block; width: 220px">
                             <a href="{{action('BrandInfoController@BrandInfoAdd')}}" style="color: #ffffff ; display: inline-block; padding-left: 3px;"><button  class="btn btn-sm btn-default bg-blue"><i class="fa  fa-pencil-square" style="padding-right: 3px;"></i>添加品牌信息</button></a>
                         </div>
-                        <form action="/admin/brand_search" method="post" class="form-group pull-right col-md-2 col-xs-6">
+                        <form action="/search/brand" method="post" class="form-group pull-right col-md-2 col-xs-6">
                             <div class="input-group input-group-sm ">
-                                <input type="text" name="title" class="form-control pull-right" placeholder="品牌搜索">
+                                <input type="text" name="brandname" class="form-control pull-right" placeholder="品牌搜索">
                                 {{csrf_field()}}
                                 <div class="input-group-btn">
                                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>

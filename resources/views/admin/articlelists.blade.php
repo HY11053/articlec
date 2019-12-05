@@ -22,9 +22,9 @@
                             <a href="{{action('ArticleController@FmImportContents')}}" style="color: #ffffff ; display: inline-block; padding-left: 3px;"><button  class="btn btn-sm btn-default bg-blue"><i class="fa  fa-pencil-square" style="padding-right: 3px;"></i>表单提交导入</button></a>
                             <a href="{{action('ArticleController@FmImportContents')}}" style="color: #ffffff ; display: inline-block; padding-left: 3px;"><button  class="btn btn-sm btn-default bg-green"><i class="fa  fa-pencil-square" style="padding-right: 3px;"></i>Excel导入</button></a>
                         </div>
-                        <form action="/admin/brand_search" method="post" class="form-group pull-right col-md-2 col-xs-6">
+                        <form action="/search/brand" method="post" class="form-group pull-right col-md-2 col-xs-6">
                             <div class="input-group input-group-sm ">
-                                <input type="text" name="title" class="form-control pull-right" placeholder="品牌搜索">
+                                <input type="text" name="brandname" class="form-control pull-right" placeholder="品牌搜索">
                                 {{csrf_field()}}
                                 <div class="input-group-btn">
                                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>

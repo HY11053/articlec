@@ -12,10 +12,10 @@
             </div>
         </div>
         <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
+        <form action="/search/brand" method="post" class="sidebar-form">
             {{ csrf_field() }}
             <div class="input-group">
-                <input type="text" name="title" class="form-control" autocomplete="off" placeholder="输入文档标题...">
+                <input type="text" name="brandname" class="form-control" autocomplete="off" placeholder="输入品牌名称...">
                 <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
@@ -55,10 +55,10 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa  fa-commenting"></i>
+                    <i class="fa  fa-file-word-o"></i>
                     <span>内容生成操作</span>
                     <span class="pull-right-container">
-              <span class="label label-primary pull-right">9</span>
+              <span class="label label-primary pull-right">generate</span>
             </span>
                 </a>
                 <ul class="treeview-menu">
@@ -70,7 +70,7 @@
                 <a href="#">
                     <i class="fa fa-random"></i> <span>标题类型管理</span>
                     <span class="pull-right-container">
-              <small class="label pull-right bg-green">new</small>
+              <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">

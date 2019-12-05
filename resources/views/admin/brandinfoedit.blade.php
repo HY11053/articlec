@@ -4,6 +4,7 @@
     <link href="/adminlte/plugins/iCheck/all.css" rel="stylesheet">
     <link href="/adminlte/plugins/iCheck/flat/green.css" rel="stylesheet">
     <link href="/adminlte/plugins/select2/select2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <style>
         .red{color: red;}
         .select2-container--default .select2-selection--single {
@@ -57,8 +58,12 @@
                                         {{Form::text('brandname', null,array('class'=>'form-control pull-right'))}}
                                     </div>
                                 </div>
-                                <div class="form-group col-md-12">
-                                    {{Form::textarea('brandinfo',null, array('class' => 'form-control col-md-10','id'=>'desrciption','rows'=>3,'placeholder'=>'不填写将自动提取首段'))}}
+                                <div class="box-body pad">
+                                    <form>
+                                            <textarea class="textarea" placeholder="Place some text here" style="width: 100%; height: 1000px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+                                              {!! $thisbrandinfo->brandinfo !!}
+                                            </textarea>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -100,6 +105,14 @@
         $(function () {
             $('.select2').select2({language: "zh-CN"});
         });
+    </script>
+    <script src="/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <script>
+        $(function () {
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
+            $('.textarea').wysihtml5()
+        })
     </script>
 @stop
 
