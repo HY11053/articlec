@@ -58,7 +58,7 @@
                                     <td>{{$brandinfolist->id}}</td>
                                     <td>{{$brandinfolist->brandname}}</td>
                                     <td>@if(\Carbon\Carbon::now() > \Carbon\Carbon::parse($brandinfolist->created_at)->addDays(7)){{$brandinfolist->created_at}} @else{{\Carbon\Carbon::parse($brandinfolist->created_at)->diffForHumans()}}@endif </td>
-                                    <td title="{{$brandinfolist->brandinfo}}">{{mb_substr(strip_tags($brandinfolist->brandinfo),0,50,'utf-8')}}...</td>
+                                    <td title="{{$brandinfolist->brandinfo}}">{{mb_substr(str_replace('　','',strip_tags($brandinfolist->brandinfo)),0,50,'utf-8')}}...</td>
                                     <td class="astyle">
                                         <span class="label label-warning"><a href="/brandinfo/edit/{{$brandinfolist->id}}">编辑</a></span>
                                         <span class="label label-danger"><a href="/brandinfo/delete/{{$brandinfolist->id}}" >删除</a></span>
