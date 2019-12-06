@@ -105,7 +105,7 @@
                         <div class="timeline-item">
                             <span class="time"><i class="fa fa-clock-o"></i> 生成结果预览,无问题后点击复制</span>
 
-                            <h3 class="timeline-header"><a href="#">生成结果 |</a> create result</h3>
+                            <h3 class="timeline-header"><a href="#">重新生成 |</a> create result</h3>
                             <!-- /.box -->
 
 
