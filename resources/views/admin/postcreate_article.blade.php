@@ -151,7 +151,6 @@
             </div>
             <!-- /.col -->
             {!! Form::close() !!}
-            <textarea id="createcontent" rows="3" style=" position: absolute;  left: 10000%;" ></textarea>
         </div>
         <!-- /.row -->
     </section>
