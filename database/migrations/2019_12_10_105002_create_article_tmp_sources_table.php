@@ -17,7 +17,7 @@ class CreateArticleTmpSourcesTable extends Migration
             $table->bigIncrements('id');
             $table->string('type')->index()->nullable();
             $table->string('retype')->index()->nullable();
-            $table->text('xiangqing')->nullable();
+            $table->text('brandinfo')->nullable();
             $table->text('youshi')->nullable();
             $table->text('liucheng')->nullable();
             $table->text('tiaojian')->nullable();
