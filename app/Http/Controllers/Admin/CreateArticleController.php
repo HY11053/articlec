@@ -8,6 +8,7 @@ use App\AdminModel\BrandInfo;
 use App\AdminModel\ContentSource;
 use App\AdminModel\TitleCategory;
 use App\AdminModel\TitleSource;
+use App\AdminModel\Websites;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,8 @@ class CreateArticleController extends Controller
         $articletypes=ArticleType::orderBy('id','asc')->get(['id','content_type']);
         $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
         $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
-        return view('admin.create_article',compact('articletypes','articlecategorys','titleTypes'));
+        $websites=Websites::where('isused',1)->get(['id','webname']);
+        return view('admin.create_article',compact('articletypes','articlecategorys','titleTypes','websites'));
     }
 
     /**普通文档创建生成处理
@@ -43,7 +45,9 @@ class CreateArticleController extends Controller
                 ContentSource::where('id',$randomarticle->id)->update(['used'=>$randomarticle->used+1]);
             }
         }
-        return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','articleinfos','articlecontents','createinfo','title'));
+        $website=$request->website;
+        $websites=Websites::where('isused',1)->get(['id','webname']);
+        return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','articleinfos','articlecontents','createinfo','title','websites','website'));
     }
 
     public function CreateBrandArticle (){

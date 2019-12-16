@@ -74,7 +74,19 @@ Route::middleware(['auth'])->group(function ()
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/create/article', 'CreateArticleController@CreateArticle');
     Route::post('/create/article', 'CreateArticleController@PostCreateArticle')->name('articlecreate');
+    Route::post('/article/push', 'CreateArticleController@PostCreateArticle')->name('articlecreate');
     Route::get('/create/brandarticle', 'CreateArticleController@CreateBrandArticle');
     //品牌搜索
     Route::post('/search/brand', 'BrandInfoController@BrandSearch');
+    //获取站点分类
+    Route::get('/website/lists', 'WebsiteCategoryController@WebSIteLists');
+    Route::get('/website/add', 'WebsiteCategoryController@WebSIteAdd');
+    Route::post('/website/add', 'WebsiteCategoryController@PostWebSIteAdd')->name('websiteadd');
+    Route::get('/website/edit/{id}', 'WebsiteCategoryController@WebSIteEdit');
+    Route::put('/website/edit/{id}', 'WebsiteCategoryController@PostWebSIteEdit')->name('postwebsiteedit');
+    Route::post('/website/gettidinfo', 'WebsiteCategoryController@GetWebsiteTid');
+    Route::post('/website/getsontypes', 'WebsiteCategoryController@GetWebsiteSontypes');
+    Route::post('/website/getbdname', 'WebsiteCategoryController@GetWebsiteBdname');
+    Route::post('/website/getnavsinfo', 'WebsiteCategoryController@GetWebsitenavs');
+    Route::post('/website/article/push', 'WebsiteCategoryController@PostArticlePush')->name('articlepush');
 });

@@ -85,6 +85,14 @@
                                         @endforeach
                                     </div>
                                 </div>
+                                <div class="form-group col-md-12 basic_info">
+                                    <label class="col-md-1  control-label">推送站点</label>
+                                    <div class="checkbox" style="margin-top: 0px;">
+                                        @foreach($websites as $site)
+                                            {{Form::radio('website', $site->id, false,array('class'=>'flat-red'))}} {{$site->webname}}
+                                        @endforeach
+                                    </div>
+                                </div>
                             </div>
                             <div class="timeline-footer" style="clear: both;">
                                 <button class="btn btn-primary btn-sm">点击生成</button>

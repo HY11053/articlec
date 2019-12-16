@@ -147,35 +147,14 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-share"></i> <span>功能待开发中</span>
+                    <i class="fa fa-share"></i> <span>站点绑定管理</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                    <li>
-                        <a href="#"><i class="fa fa-circle-o"></i> Level One
-                            <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                            <li>
-                                <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+                    <li @if(Request::getRequestUri()=='/website/lists')class="active"@endif><a href="/website/lists"><i class="fa fa-circle-o"></i> 站点绑定列表</a></li>
+                    <li @if(Request::getRequestUri()=='/website/add')class="active"@endif><a href="/website/add"><i class="fa fa-circle-o"></i> 站点绑定添加</a></li>
                 </ul>
             </li>
             <li><a href="https://github.com/HY11053/laravelcms"><i class="fa fa-book"></i> <span>后台使用文档</span></a></li>
