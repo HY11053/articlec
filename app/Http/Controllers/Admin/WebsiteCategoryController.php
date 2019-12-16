@@ -100,6 +100,20 @@ class WebsiteCategoryController extends Controller
     }
 
     public function PostArticlePush(Request $request){
-        dd($request->all());
+        $client = new Client();
+        $response = $client->request('POST', 'http://www.u88.com/api/article/push', [
+            'form_params' => [
+                'title' => $request->title,
+                'keywords' => $request->keywords,
+                'brandcid' =>$request->brandcid,
+                'brandtypeid' =>$request->brandtypeid,
+                'brandid' =>$request->brandid,
+                'typeid' =>$request->articletypeid,
+                'description' =>$request->description,
+                'published_at' =>$request->published_at,
+                'body' =>'',
+            ]
+        ]);
+        return $response->getBody();
     }
 }
