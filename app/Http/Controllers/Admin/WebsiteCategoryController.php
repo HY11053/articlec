@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\AdminModel\Websites;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateArticleRequest;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WebsiteCategoryController extends Controller
 {
@@ -99,9 +101,21 @@ class WebsiteCategoryController extends Controller
         return json_decode($brandarticlesResponse,true);
     }
 
-    public function PostArticlePush(Request $request){
+    public function GetBrandPics(Request $request){
         $client = new Client();
-        $response = $client->request('POST', 'http://www.u88.com/api/article/push', [
+        $weburl=trim(Websites::where('id',$request->website)->value('weburl'),'/');
+        $brandarticlesResponse = $client->get($weburl.'/api/getbrandpicsapi?brandid='.$request->brandid,['verify' => false])->getBody();
+        return json_decode($brandarticlesResponse,true);
+
+    }
+
+    /**数据发送到对应站点
+     * @param CreateArticleRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function PostArticlePush(CreateArticleRequest $request){
+        $client = new Client();
+        $response = $client->request('POST', 'http://www.u88.net/api/article/push', [
             'form_params' => [
                 'title' => $request->title,
                 'keywords' => $request->keywords,
@@ -111,9 +125,12 @@ class WebsiteCategoryController extends Controller
                 'typeid' =>$request->articletypeid,
                 'description' =>$request->description,
                 'published_at' =>$request->published_at,
-                'body' =>'',
+                'body' =>$request->body,
+                'write'=>Auth::user()->name,
             ]
         ]);
-        return $response->getBody();
+        if ($response->getBody()=='发布成功'){
+            return redirect()->route('articlecreate', ['webname' =>$request->webname]);
+        }
     }
 }

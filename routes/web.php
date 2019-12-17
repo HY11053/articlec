@@ -74,7 +74,6 @@ Route::middleware(['auth'])->group(function ()
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/create/article', 'CreateArticleController@CreateArticle');
     Route::post('/create/article', 'CreateArticleController@PostCreateArticle')->name('articlecreate');
-    Route::post('/article/push', 'CreateArticleController@PostCreateArticle')->name('articlecreate');
     Route::get('/create/brandarticle', 'CreateArticleController@CreateBrandArticle');
     //品牌搜索
     Route::post('/search/brand', 'BrandInfoController@BrandSearch');
@@ -88,5 +87,6 @@ Route::middleware(['auth'])->group(function ()
     Route::post('/website/getsontypes', 'WebsiteCategoryController@GetWebsiteSontypes');
     Route::post('/website/getbdname', 'WebsiteCategoryController@GetWebsiteBdname');
     Route::post('/website/getnavsinfo', 'WebsiteCategoryController@GetWebsitenavs');
+    Route::post('/website/getbrandpic', 'WebsiteCategoryController@GetBrandPics');
     Route::post('/website/article/push', 'WebsiteCategoryController@PostArticlePush')->name('articlepush');
 });

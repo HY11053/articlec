@@ -29,7 +29,6 @@
 @stop
 @section('content')
     <section class="content">
-
         <!-- row -->
         <div class="row">
             {{Form::model($createinfo,array('route' =>array('articlecreate'),'method' => 'post','files' => false,))}}
@@ -56,7 +55,7 @@
                                     {{Form::label('brandname', '品牌名称', array('class' => 'control-label col-md-1'))}}
                                     <div class="input-group col-md-4">
                                         <div class="input-group-addon"><i class="fa fa-user" style="width:10px;"></i></div>
-                                        {{Form::text('brandname',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'品牌名称'))}}
+                                        {{Form::text('brandname',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'品牌名称','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -65,7 +64,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-cubes" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('typeid', $articlecategorys, null,array('class'=>'form-control pull-right select2 ','style'=>'width: 100%'))}}
+                                        {{Form::select('typeid', $articlecategorys, null,array('class'=>'form-control pull-right select2 ','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -74,7 +73,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-language" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('title_typeid', $titleTypes, null,array('class'=>'form-control pull-right select2','style'=>'width: 100%'))}}
+                                        {{Form::select('title_typeid', $titleTypes, null,array('class'=>'form-control pull-right select2','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 basic_info">
@@ -96,9 +95,9 @@
                                     <div class="checkbox" style="margin-top: 0px;">
                                         @foreach($websites as $site)
                                             @if($website==$site->id)
-                                                {{Form::radio('website', $site->id, true,array('class'=>'flat-red'))}} {{$site->webname}}
+                                                {{Form::radio('website', $site->id, true,array('class'=>'flat-red','required'=>'required'))}} {{$site->webname}}
                                                 @else
-                                                {{Form::radio('website', $site->id, false,array('class'=>'flat-red'))}} {{$site->webname}}
+                                                {{Form::radio('website', $site->id, false,array('class'=>'flat-red','required'=>'required'))}} {{$site->webname}}
                                             @endif
                                         @endforeach
                                     </div>
@@ -118,7 +117,7 @@
             <!-- /.col -->
             {!! Form::close() !!}
 
-            {{Form::model($createinfo,array('route' =>array('articlepush'),'method' => 'post','files' => false,))}}
+            {{Form::model($createinfo,array('route' =>array('articlepush'),'method' => 'post','files' => false,'id'=>'formsubmit'))}}
             <div class="col-md-12">
                 <!-- The time line -->
                 <ul class="timeline">
@@ -137,42 +136,42 @@
                                 <div class="form-group col-md-12">
                                     {{Form::label('title', '文档标题', array('class' => 'control-label col-md-1'))}}
                                     <div class="input-group col-md-4">
-                                        <div class="input-group-addon"><i class="fa fa-user" style="width:10px;"></i></div>
-                                        {{Form::text('title',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'请输入文档标题'))}}
+                                        <div class="input-group-addon"><i class="fa fa-eye-slash" style="width:10px;"></i></div>
+                                        {{Form::text('title',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'请输入文档标题','required'=>'required|'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     {{Form::label('keywords', '文档关键字', array('class' => 'control-label col-md-1'))}}
                                     <div class="input-group col-md-4">
-                                        <div class="input-group-addon"><i class="fa fa-user" style="width:10px;"></i></div>
-                                        {{Form::text('keywords',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'请输入文档关键字,使用,分割'))}}
+                                        <div class="input-group-addon"><i class="fa fa-file-powerpoint-o" style="width:10px;"></i></div>
+                                        {{Form::text('keywords',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'请输入文档关键字,使用,分割','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     {{Form::label('brandcid', '品牌所属大类', array('class' => 'col-md-1 control-label'))}}
                                     <div class="input-group col-md-4">
                                         <div class="input-group-addon">
-                                            <i class="fa fa-language" style="width:10px;"></i>
+                                            <i class="fa fa-cogs" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('brandcid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'brandcid','style'=>'width: 100%'))}}
+                                        {{Form::select('brandcid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'brandcid','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     {{Form::label('brandtypeid', '品牌所属子类', array('class' => 'col-md-1 control-label'))}}
                                     <div class="input-group col-md-4">
                                         <div class="input-group-addon">
-                                            <i class="fa fa-language" style="width:10px;"></i>
+                                            <i class="fa fa-cog" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('brandtypeid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'brandtypeid','style'=>'width: 100%'))}}
+                                        {{Form::select('brandtypeid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'brandtypeid','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     {{Form::label('brandid', '文档所属品牌', array('class' => 'col-md-1 control-label'))}}
                                     <div class="input-group col-md-4">
                                         <div class="input-group-addon">
-                                            <i class="fa fa-language" style="width:10px;"></i>
+                                            <i class="fa fa-flag-checkered" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('brandid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'brandid','style'=>'width: 100%'))}}
+                                        {{Form::select('brandid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'brandid','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
 
@@ -182,16 +181,18 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-language" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('articletypeid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'articletypeid','style'=>'width: 100%'))}}
+                                        {{Form::select('articletypeid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'articletypeid','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     {{Form::label('description', '文档描述', array('class' => 'control-label col-md-1'))}}
                                     <div class="input-group  col-md-4">
                                         <div class="input-group-addon">
-                                            <i class="fa fa-language" style="width:10px;"></i>
+                                            <i class="fa fa-area-chart" style="width:10px;"></i>
                                         </div>
                                         {{Form::textarea('description',null, array('class' => 'form-control pull-right','id'=>'desrciption','rows'=>1,'placeholder'=>'不填写将自动提取首段'))}}
+                                        {{Form::hidden('webname', null, array('class' => 'form-control col-md-10','id'=>'webname','required'=>'required'))}}
+                                        {{Form::hidden('body', null, array('class' => 'form-control col-md-10','id'=>'body','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 ">
@@ -208,16 +209,29 @@
 
                             </div>
                             <div class="timeline-footer" style="clear: both;">
-                                <button class="btn btn-success btn-sm">推送至指定站点</button>
+                                <button class="btn btn-success btn-sm" >推送至指定站点</button>
                             </div>
                         </div>
                     </li>
                     <!-- END timeline item -->
                     <li>
-                        <i class="fa fa-video-camera bg-maroon"></i>
+                        <i class="fa fa-camera bg-purple"></i>
 
                         <div class="timeline-item">
-                            <span class="time"><i class="fa fa-file-word-o"></i> 生成结果预览,无问题后点击复制</span>
+                            <span class="time"><i class="fa fa-clock-o"></i> 根据需要复制对应图片到编辑器</span>
+
+                            <h3 class="timeline-header"><a href="#">当前品牌</a> 图集内容列表</h3>
+
+                            <div class="timeline-body" id="brandpics">
+
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-file-text bg-maroon"></i>
+
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-file-word-o"></i> 生成结果预览,无问题后推送到对应站点</span>
 
                             <h3 class="timeline-header"><a href="#">生成结果 |</a> create result</h3>
                             <!-- /.box -->
@@ -231,6 +245,13 @@
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body pad">
+                                    @if(count($errors) > 0)
+                                        <ul class="alert alert-danger">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
                                     <form>
                                             <textarea class="textarea" placeholder="Place some text here" style="width: 100%; height: 1000px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
                                                 @if($title)<h1> {{$createinfo->get('brandname')}}{{$title}}</h1>@endif
@@ -285,13 +306,17 @@
             getCurrentCidinfo();
             getNavs()
             $('.select2').select2({language: "zh-CN"});
+            $("#webname").val($("input[type='radio']:checked").val())
             $("#brandcid").on("change",function(){getsonTypes("/website/getsontypes",{"topid":$("#brandcid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandtypeid")});
             $("#brandtypeid").on("change",function(){getBdname('/website/getbdname',{"brandtypeid":$("#brandtypeid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandid")});
+            $("#brandid").on("change",function(){getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")});
             $('input[type="radio"].flat-red').on('ifChecked', function(){
+                $("#webname").val($("input[type='radio']:checked").val())
                 getCurrentCidinfo();
                 getNavs()
                 $("#brandcid").on("change",function(){getsonTypes("/website/getsontypes",{"topid":$("#brandcid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandtypeid")});
                 $("#brandtypeid").on("change",function(){getBdname('/website/getbdname',{"brandtypeid":$("#brandtypeid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandid")});
+                $("#brandid").on("change",function(){getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")});
             });
         })
         //获取默认站点下品牌顶级分类信息
@@ -302,11 +327,10 @@
                     success:function (response) {
                         var contents='';
                         for (type in response) {
-                            console.log()
                             contents += '<option value="' + response[type]['id'] + '">' + response[type]['typename'] + '</option>';
                         }
                         $('#brandcid').html(contents);
-                        console.log($("#brandcid").select2("val"))
+                        //console.log($("#brandcid").select2("val"))
                         getsonTypes("/website/getsontypes",{"topid":$("#brandcid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandtypeid");
                     }
                 });
@@ -339,6 +363,7 @@
                             contents += '<option value="' +  response[type]['id'] + '">' + response[type]['brandname'] + '</option>';
                         }
                         $(element).html(contents);
+                        getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")
                     }
                 });
         }
@@ -356,6 +381,25 @@
                     }
                 });
         }
+
+        function getBrandpics(url,datas,element){
+            $.ajax(
+                {type:"POST",url:url,data:datas,
+                    datatype: "json",
+                    success:function (response) {
+                        var contents='';
+                        for (type in response) {
+                            contents += '<img style="width: 150px; height: 100px; border-radius: 5px;" src="'+response[type]+'"  class="margin">';
+                        }
+                        $(element).html(contents);
+                    }
+                });
+        }
+
+        $('#formsubmit').submit(function() {
+            $('#body').val($('.textarea').val());
+            $('#formsubmit').submit();
+        });
     </script>
 @stop
 

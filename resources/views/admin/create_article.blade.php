@@ -48,13 +48,12 @@
                             <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
 
                             <h3 class="timeline-header"><a href="#">生成选项 |</a> create options</h3>
-
                             <div class="timeline-body">
                                 <div class="form-group col-md-12">
                                     {{Form::label('brandname', '品牌名称', array('class' => 'control-label col-md-1'))}}
                                     <div class="input-group col-md-4">
                                         <div class="input-group-addon"><i class="fa fa-user" style="width:10px;"></i></div>
-                                        {{Form::text('brandname',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'品牌名称'))}}
+                                        {{Form::text('brandname',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'品牌名称','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -63,7 +62,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-cubes" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('typeid', $articlecategorys, null,array('class'=>'form-control pull-right select2','style'=>'width: 100%'))}}
+                                        {{Form::select('typeid', $articlecategorys, null,array('class'=>'form-control pull-right select2','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -72,7 +71,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-language" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('title_typeid', $titleTypes, null,array('class'=>'form-control pull-right select2','style'=>'width: 100%'))}}
+                                        {{Form::select('title_typeid', $titleTypes, null,array('class'=>'form-control pull-right select2','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 basic_info">
@@ -80,7 +79,7 @@
                                     <div class="checkbox" style="margin-top: 0px;">
                                         @foreach($articletypes as $articletype)
                                         <label>
-                                            {{Form::checkbox('content_type[]', $articletype->id,true,array('class'=>'flat-red'))}} {{$articletype->content_type}}
+                                            {{Form::checkbox('content_type[]', $articletype->id,true,array('class'=>'flat-red','required'=>'required'))}} {{$articletype->content_type}}
                                         </label>
                                         @endforeach
                                     </div>
@@ -89,7 +88,7 @@
                                     <label class="col-md-1  control-label">推送站点</label>
                                     <div class="checkbox" style="margin-top: 0px;">
                                         @foreach($websites as $site)
-                                            {{Form::radio('website', $site->id, false,array('class'=>'flat-red'))}} {{$site->webname}}
+                                            {{Form::radio('website', $site->id, false,array('class'=>'flat-red','required'=>'required'))}} {{$site->webname}}
                                         @endforeach
                                     </div>
                                 </div>
@@ -111,10 +110,20 @@
                             <h3 class="timeline-header"><a href="#">生成结果 |</a> create result</h3>
 
                             <div class="timeline-body">
-                               内容生成结果区域
+                                @if(count($errors) > 0)
+                                    <ul class="alert alert-danger">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                    @else
+                                    <ul class="alert alert-success">
+                                        数据推送成功，请继续生成
+                                    </ul>
+                                @endif
                             </div>
                             <div class="timeline-footer">
-                                <submit class="btn btn-sm bg-maroon" onsubmit="return false;">复制内容</submit>
+
                             </div>
                         </div>
                     </li>

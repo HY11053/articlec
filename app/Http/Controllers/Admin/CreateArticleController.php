@@ -10,6 +10,7 @@ use App\AdminModel\TitleCategory;
 use App\AdminModel\TitleSource;
 use App\AdminModel\Websites;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateArticleRequest;
 use Illuminate\Http\Request;
 
 class CreateArticleController extends Controller
