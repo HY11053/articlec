@@ -116,7 +116,7 @@
                                             <li>{{ $error }}</li>
                                         @endforeach
                                     </ul>
-                                    @else
+                                    @elseif(isset($webname))
                                     <ul class="alert alert-success">
                                         数据推送成功，请继续生成
                                     </ul>

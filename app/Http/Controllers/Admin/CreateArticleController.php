@@ -18,12 +18,13 @@ class CreateArticleController extends Controller
     /**普通文档创建
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function CreateArticle(){
+    public function CreateArticle(Request $request){
         $articletypes=ArticleType::orderBy('id','asc')->get(['id','content_type']);
         $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
         $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
         $websites=Websites::where('isused',1)->get(['id','webname']);
-        return view('admin.create_article',compact('articletypes','articlecategorys','titleTypes','websites'));
+        $webname=$request->webname;
+        return view('admin.create_article',compact('articletypes','articlecategorys','titleTypes','websites','webname'));
     }
 
     /**普通文档创建生成处理
