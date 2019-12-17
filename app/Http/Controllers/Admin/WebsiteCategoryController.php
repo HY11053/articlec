@@ -115,7 +115,9 @@ class WebsiteCategoryController extends Controller
      */
     public function PostArticlePush(CreateArticleRequest $request){
         $client = new Client();
-        $response = $client->request('POST', 'http://www.u88.net/api/article/push', [
+        $weburl=trim(Websites::where('id',$request->webname)->value('weburl'),'/');
+        $response = $client->request('POST', $weburl.'/api/article/push', [
+            'verify' => false,
             'form_params' => [
                 'title' => $request->title,
                 'keywords' => $request->keywords,
