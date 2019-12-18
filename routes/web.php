@@ -89,4 +89,7 @@ Route::middleware(['auth'])->group(function ()
     Route::post('/website/getnavsinfo', 'WebsiteCategoryController@GetWebsitenavs');
     Route::post('/website/getbrandpic', 'WebsiteCategoryController@GetBrandPics');
     Route::post('/website/article/push', 'WebsiteCategoryController@PostArticlePush')->name('articlepush');
+
+    //智能创作平台
+    Route::post('/baidunpl/getecnet', 'BaiduNlpController@Ecnet');
 });

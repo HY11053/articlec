@@ -116,7 +116,7 @@
             <!-- /.col -->
             {!! Form::close() !!}
 
-            {{Form::model($createinfo,array('route' =>array('articlepush'),'method' => 'post','files' => false,'id'=>'formsubmit'))}}
+            {{Form::model($createinfo,array('route' =>array('articlepush'),'method' => 'post','files' => false,'id'=>'formsubmit','onsubmit'=>"return false;"))}}
             <div class="col-md-12">
                 <!-- The time line -->
                 <ul class="timeline">
@@ -208,7 +208,7 @@
 
                             </div>
                             <div class="timeline-footer" style="clear: both;">
-                                <button class="btn btn-success btn-sm" >推送至指定站点</button>
+                                <button id="submit_content" class="btn btn-success btn-sm" >推送至指定站点</button>
                             </div>
                         </div>
                     </li>
@@ -234,13 +234,16 @@
                                     @include('admin.layouts.content')
                                 </script>
                             </div>
-                            @if(count($errors) > 0)
-                                <ul class="alert alert-danger">
-                                    @foreach($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            @endif
+                            <div id="errors">
+                                @if(count($errors) > 0)
+                                    <ul class="alert alert-danger">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </div>
+
                         </div>
                     </li>
                     <!-- END timeline item -->
@@ -363,10 +366,22 @@
                 });
         }
 
-        $('#formsubmit').submit(function() {
-            //console.log(ue.getContent())
-            //return false;
-            /*$('#formsubmit').submit();*/
+        //文本内容纠错
+        $('#submit_content').click(function() {
+            $.ajax(
+                {type:"POST",url:'/baidunpl/getecnet',data:{"contents":ue.getContent()},
+                    datatype: "json",
+                    success:function (response) {
+                        if (response.length){
+                            htmls='<ul class="alert alert-danger"><li>'+response+'</li></ul>'
+                            $("#errors").html(htmls)
+                            return false;
+                        }else {
+                            $('#formsubmit').removeAttr('onsubmit');
+                            $('#formsubmit').submit();
+                        }
+                    }
+                });
         });
     </script>
 @stop
