@@ -116,7 +116,7 @@
             <!-- /.col -->
             {!! Form::close() !!}
 
-            {{Form::model($createinfo,array('route' =>array('articlepush'),'method' => 'post','files' => false,'id'=>'formsubmit'))}}
+            {{Form::model($createinfo,array('route' =>array('articlepush'),'method' => 'post','files' => false,'id'=>'formsubmit'/*,'onsubmit'=>"return false;"*/))}}
             <div class="col-md-12">
                 <!-- The time line -->
                 <ul class="timeline">
@@ -366,23 +366,40 @@
                 });
         }
 
-       /* //文本内容纠错
-        $('#submit_content').click(function() {
-            $.ajax(
-                {type:"POST",url:'/baidunpl/getecnet',data:{"contents":ue.getContent()},
-                    datatype: "json",
-                    success:function (response) {
-                        if (response.length){
+        $('#formsubmit').submit(function(e) {
+            e.preventDefault();
+            var submit = false;
+            // evaluate the form using generic validaing
+            console.log(validator.checkAll($(this)))
+            if (!validator.checkAll($(this))) {
+                submit = false;
+            }
+            if (submit){
+                $.ajax(
+                    {
+                        type:"POST",
+                        url:'/website/article/push2',
+                        data:{
+                            "title":$("#title").val(),
+                            "brandcid":$("#brandcid").select2("val"),
+                            "brandtypeid":$("#brandtypeid").select2("val"),
+                            "brandid":$("#brandtypeid").select2("val"),
+                            "articletypeid":$("#brandtypeid").select2("val"),
+                            "description":$("#description").val(),
+                            "keywords":$("#keywords").val(),
+                            "published_at":$("#published_at").val(),
+                            "body":ue.getContent()
+                        },
+                        datatype: "json",
+                        success:function (response) {
                             htmls='<ul class="alert alert-danger"><li>'+response+'</li></ul>'
                             $("#errors").html(htmls)
                             return false;
-                        }else {
-                            $('#formsubmit').removeAttr('onsubmit');
-                            $('#formsubmit').submit();
                         }
-                    }
-                });
-        });*/
+                    });
+            }
+        });
+
     </script>
 @stop
 
