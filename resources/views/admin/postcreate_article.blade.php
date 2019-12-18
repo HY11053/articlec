@@ -116,7 +116,7 @@
             <!-- /.col -->
             {!! Form::close() !!}
 
-            {{Form::model($createinfo,array('route' =>array('articlepush'),'method' => 'post','files' => false,'id'=>'formsubmit'/*,'onsubmit'=>"return false;"*/))}}
+            {{Form::model($createinfo,array('route' =>array('articlepush'),'method' => 'post','files' => false,'id'=>'formsubmit','onsubmit'=>"return false;"))}}
             <div class="col-md-12">
                 <!-- The time line -->
                 <ul class="timeline">
@@ -136,14 +136,14 @@
                                     {{Form::label('title', '文档标题', array('class' => 'control-label col-md-1'))}}
                                     <div class="input-group col-md-4">
                                         <div class="input-group-addon"><i class="fa fa-eye-slash" style="width:10px;"></i></div>
-                                        {{Form::text('title',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'请输入文档标题','required'=>'required|'))}}
+                                        {{Form::text('title',null, array('class' => 'form-control  pull-right','id'=>'title','placeholder'=>'请输入文档标题','required'=>'required|'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     {{Form::label('keywords', '文档关键字', array('class' => 'control-label col-md-1'))}}
                                     <div class="input-group col-md-4">
                                         <div class="input-group-addon"><i class="fa fa-file-powerpoint-o" style="width:10px;"></i></div>
-                                        {{Form::text('keywords',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'请输入文档关键字,使用,分割','required'=>'required'))}}
+                                        {{Form::text('keywords',null, array('class' => 'form-control  pull-right','id'=>'keywords','placeholder'=>'请输入文档关键字,使用,分割','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -191,7 +191,6 @@
                                         </div>
                                         {{Form::textarea('description',null, array('class' => 'form-control pull-right','id'=>'desrciption','rows'=>1,'placeholder'=>'不填写将自动提取首段'))}}
                                         {{Form::hidden('webname', null, array('class' => 'form-control col-md-10','id'=>'webname','required'=>'required'))}}
-                                        {{Form::hidden('body', null, array('class' => 'form-control col-md-10','id'=>'body','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 ">
@@ -271,8 +270,6 @@
         $(function () {
             $('.basic_info input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({ checkboxClass: 'icheckbox_flat-green', radioClass: 'iradio_flat-green'});
             $('#datepicker').datepicker({autoclose: true,language: 'zh-CN',todayHighlight: true });
-            // Replace the <textarea id="editor1"> with a CKEditor
-            // instance, using default configuration.
             getCurrentCidinfo();
             getNavs()
             $('.select2').select2({language: "zh-CN"});
@@ -337,6 +334,7 @@
                     }
                 });
         }
+        //获取指定站点普通文档分类
         function getNavs() {
             $.ajax(
                 {type:"POST",url:'/website/getnavsinfo',data:{"website":$("input[type='radio']:checked").val()},
@@ -352,6 +350,7 @@
                 });
         }
 
+        //获取指定品牌文档图集内容
         function getBrandpics(url,datas,element){
             $.ajax(
                 {type:"POST",url:url,data:datas,
@@ -366,38 +365,36 @@
                 });
         }
 
+
+        //文档推送
         $('#formsubmit').submit(function(e) {
             e.preventDefault();
-            var submit = false;
-            // evaluate the form using generic validaing
-            console.log(validator.checkAll($(this)))
-            if (!validator.checkAll($(this))) {
-                submit = false;
-            }
-            if (submit){
-                $.ajax(
-                    {
-                        type:"POST",
-                        url:'/website/article/push2',
-                        data:{
-                            "title":$("#title").val(),
-                            "brandcid":$("#brandcid").select2("val"),
-                            "brandtypeid":$("#brandtypeid").select2("val"),
-                            "brandid":$("#brandtypeid").select2("val"),
-                            "articletypeid":$("#brandtypeid").select2("val"),
-                            "description":$("#description").val(),
-                            "keywords":$("#keywords").val(),
-                            "published_at":$("#published_at").val(),
-                            "body":ue.getContent()
-                        },
-                        datatype: "json",
-                        success:function (response) {
-                            htmls='<ul class="alert alert-danger"><li>'+response+'</li></ul>'
-                            $("#errors").html(htmls)
-                            return false;
-                        }
-                    });
-            }
+            $.ajax(
+                {
+                    type:"POST",
+                    url:'/website/article/push',
+                    data:{
+                        "title":$("#title").val(),
+                        "brandcid":$("#brandcid").select2("val"),
+                        "brandtypeid":$("#brandtypeid").select2("val"),
+                        "brandid":$("#brandtypeid").select2("val"),
+                        "articletypeid":$("#brandtypeid").select2("val"),
+                        "description":$("#description").val(),
+                        "keywords":$("#keywords").val(),
+                        "published_at":$("#published_at").val(),
+                        "webname":$("#webname").val(),
+                        "body":ue.getContent()
+                    },
+                    datatype: "json",
+                    success:function (response) {
+                        $("#title").val('');
+                        $("#keywords").val('');
+                        ue.setContent('')
+                        alert(response)
+                        return false;
+                    }
+                });
+            return false
         });
 
     </script>

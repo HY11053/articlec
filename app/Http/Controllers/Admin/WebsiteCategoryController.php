@@ -131,8 +131,6 @@ class WebsiteCategoryController extends Controller
                 'write'=>Auth::user()->name,
             ]
         ]);
-        if ($response->getBody()=='发布成功'){
-            return redirect()->route('articlecreate', ['webname' =>$request->webname]);
-        }
+        return $response->getBody();
     }
 }
