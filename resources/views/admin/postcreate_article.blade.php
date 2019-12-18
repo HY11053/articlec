@@ -116,7 +116,7 @@
             <!-- /.col -->
             {!! Form::close() !!}
 
-            {{Form::model($createinfo,array('route' =>array('articlepush'),'method' => 'post','files' => false,'id'=>'formsubmit','onsubmit'=>"return false;"))}}
+            {{Form::model($createinfo,array('route' =>array('articlepush'),'method' => 'post','files' => false,'id'=>'formsubmit'))}}
             <div class="col-md-12">
                 <!-- The time line -->
                 <ul class="timeline">
@@ -366,7 +366,7 @@
                 });
         }
 
-        //文本内容纠错
+       /* //文本内容纠错
         $('#submit_content').click(function() {
             $.ajax(
                 {type:"POST",url:'/baidunpl/getecnet',data:{"contents":ue.getContent()},
@@ -382,7 +382,7 @@
                         }
                     }
                 });
-        });
+        });*/
     </script>
 @stop
 
