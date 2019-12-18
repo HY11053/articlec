@@ -79,7 +79,7 @@
                                     <div class="checkbox" style="margin-top: 0px;">
                                         @foreach($articletypes as $articletype)
                                         <label>
-                                            {{Form::checkbox('content_type[]', $articletype->id,true,array('class'=>'flat-red','required'=>'required'))}} {{$articletype->content_type}}
+                                            {{Form::checkbox('content_type[]', $articletype->id,true,array('class'=>'flat-red'))}} {{$articletype->content_type}}
                                         </label>
                                         @endforeach
                                     </div>
