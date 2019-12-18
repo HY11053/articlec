@@ -5,7 +5,6 @@
     <link href="/adminlte/plugins/iCheck/flat/green.css" rel="stylesheet">
     <link href="/adminlte/plugins/select2/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/adminlte/plugins/datepicker/datepicker3.css">
-    <link rel="stylesheet" href="/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <style>
         .red{color: red;}
         .select2-container--default .select2-selection--single {
@@ -82,9 +81,9 @@
                                         @foreach($articletypes as $articletype)
                                             <label>
                                                 @if(in_array($articletype->id,$createinfo->get('content_type')))
-                                                {{Form::checkbox('content_type[]', $articletype->id,true,array('class'=>'flat-red'))}} {{$articletype->content_type}}
+                                                    {{Form::checkbox('content_type[]', $articletype->id,true,array('class'=>'flat-red'))}} {{$articletype->content_type}}
                                                 @else
-                                                {{Form::checkbox('content_type[]', $articletype->id,false,array('class'=>'flat-red'))}} {{$articletype->content_type}}
+                                                    {{Form::checkbox('content_type[]', $articletype->id,false,array('class'=>'flat-red'))}} {{$articletype->content_type}}
                                                 @endif
                                             </label>
                                         @endforeach
@@ -96,7 +95,7 @@
                                         @foreach($websites as $site)
                                             @if($website==$site->id)
                                                 {{Form::radio('website', $site->id, true,array('class'=>'flat-red','required'=>'required'))}} {{$site->webname}}
-                                                @else
+                                            @else
                                                 {{Form::radio('website', $site->id, false,array('class'=>'flat-red','required'=>'required'))}} {{$site->webname}}
                                             @endif
                                         @endforeach
@@ -216,62 +215,32 @@
                     <!-- END timeline item -->
                     <li>
                         <i class="fa fa-camera bg-purple"></i>
-
                         <div class="timeline-item">
-                            <span class="time"><i class="fa fa-clock-o"></i> 根据需要复制对应图片到编辑器</span>
-
+                            <span class="time"><i class="fa fa-bell-slash-o"></i> 根据需要复制对应图片到编辑器</span>
                             <h3 class="timeline-header"><a href="#">当前品牌</a> 图集内容列表</h3>
-
                             <div class="timeline-body" id="brandpics">
-
                             </div>
                         </div>
                     </li>
                     <li>
                         <i class="fa fa-file-text bg-maroon"></i>
-
                         <div class="timeline-item">
-                            <span class="time"><i class="fa fa-file-word-o"></i> 生成结果预览,无问题后推送到对应站点</span>
-
-                            <h3 class="timeline-header"><a href="#">生成结果 |</a> create result</h3>
-                            <!-- /.box -->
-                            <!-- /.col-->
-                            <div class="box">
-                                <div class="box-header">
-                                    <h3 class="box-title">Bootstrap WYSIHTML5
-                                        <small>Simple and fast</small>
-                                    </h3>
-                                    <!-- /. tools -->
-                                </div>
-                                <!-- /.box-header -->
-                                <div class="box-body pad">
-                                    @if(count($errors) > 0)
-                                        <ul class="alert alert-danger">
-                                            @foreach($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                    <form>
-                                            <textarea class="textarea" placeholder="Place some text here" style="width: 100%; height: 1000px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
-                                                @if($title)<h1> {{$createinfo->get('brandname')}}{{$title}}</h1>@endif
-                                                @foreach(explode(PHP_EOL,$articleinfos) as $articleinfo)
-                                                    <p>{!! $articleinfo !!}</p>
-                                                @endforeach
-                                                @if(isset($articlecontents))
-                                                    @foreach($articlecontents as $content_type=>$articlecontent)
-                                                        <h3>{{$createinfo->get('brandname')}}{{$content_type}}</h3>
-                                                        @if(isset($articlecontent->content))
-                                                            @foreach(explode('@@',$articlecontent->content) as $content)
-                                                                <p>{{str_replace('{}',$createinfo->get('brandname'),$content)}}</p>
-                                                            @endforeach
-                                                        @endif
-                                                    @endforeach
-                                                @endif
-                                            </textarea>
-                                    </form>
-                                </div>
+                            <span class="time"><i class="fa fa-bell-o"></i> 生成结果预览 无问题后推送到指定站点</span>
+                            <h3 class="timeline-header"><a href="#">文档生成处理</a></h3>
+                            <div class="timeline-body">
+                                @include('admin.layouts.ueditor')
+                            <!-- 编辑器容器 -->
+                                <script id="container" name="body" type="text/plain" >
+                                    @include('admin.layouts.content')
+                                </script>
                             </div>
+                            @if(count($errors) > 0)
+                                <ul class="alert alert-danger">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </div>
                     </li>
                     <!-- END timeline item -->
@@ -295,14 +264,12 @@
     <script src="/adminlte/validator.js"></script>
     <script src="/adminlte/plugins/datepicker/bootstrap-datepicker.js"></script>
     <script src="/adminlte/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
-    <script src="/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
     <script>
         $(function () {
             $('.basic_info input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({ checkboxClass: 'icheckbox_flat-green', radioClass: 'iradio_flat-green'});
             $('#datepicker').datepicker({autoclose: true,language: 'zh-CN',todayHighlight: true });
             // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
-            $('.textarea').wysihtml5()
             getCurrentCidinfo();
             getNavs()
             $('.select2').select2({language: "zh-CN"});
@@ -397,8 +364,9 @@
         }
 
         $('#formsubmit').submit(function() {
-            $('#body').val($('.textarea').val());
-            $('#formsubmit').submit();
+            //console.log(ue.getContent())
+            //return false;
+            /*$('#formsubmit').submit();*/
         });
     </script>
 @stop
