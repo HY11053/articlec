@@ -89,7 +89,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="form-group col-md-12 basic_info">
+                                <div class="form-group col-md-12 basic_info" id="basic_info">
                                     <label class="col-md-1  control-label">推送站点</label>
                                     <div class="checkbox" style="margin-top: 0px;">
                                         @foreach($websites as $site)
@@ -182,6 +182,22 @@
                                         {{Form::select('articletypeid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'articletypeid','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
+                                <div class="form-group col-md-12 ">
+                                    {{Form::label('ismake', '文章状态', array('class' => 'control-label col-md-1'))}}
+                                    <div class="radio col-md-4">
+                                        {{Form::radio('ismake', '1', true,array('class'=>'flat-red'))}} 已审核
+                                        {{Form::radio('ismake', '0', false,array('class'=>'flat-red','checked'=>'checked'))}}未审核
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 has-warning">
+                                    {{Form::label('xiongzhang', '熊掌号推送', array('class' => 'control-label col-md-1'))}}
+                                    <div class="radio col-md-4">
+                                        {{Form::radio('xiongzhang', '1', true,array('class'=>'flat-red'))}} 天级
+                                        {{Form::radio('xiongzhang', '2', false,array('class'=>'flat-red'))}}周级
+                                        {{Form::radio('xiongzhang', '0', false,array('class'=>'flat-red'))}}否
+                                        <span class="help-block" ><i class="fa fa-bell-o"></i> 天级收录内容享受天级抓取校验、快速展现优待。周级收录接口，每天可提交最多500万条有价值的内容，所提交内容会进入百度搜索统一处理流程，这个过程需要一段时间</span>
+                                    </div>
+                                </div>
                                 <div class="form-group col-md-12">
                                     {{Form::label('description', '文档描述', array('class' => 'control-label col-md-1'))}}
                                     <div class="input-group  col-md-4">
@@ -252,10 +268,32 @@
             </div>
             <!-- /.col -->
             {!! Form::close() !!}
+
         </div>
         <!-- /.row -->
     </section>
+    <!-- Button trigger modal -->
+    <button type="button" style="display: none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Launch demo modal
+    </button>
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">发布信息状态提示</h4>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
 @section('libs')
     <!-- iCheck -->
@@ -276,9 +314,11 @@
                 $("#brandcid").select2().val({{$thisbrandid["cid"]}}).trigger("change");
                 $("#brandtypeid").select2().val({{$thisbrandid["typeid"]}}).trigger("change");
                 $("#brandid").select2().val({{$thisbrandid["id"]}}).trigger("change");
-                getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")
+                $("#brandcid").on("change",function(){getsonTypes("/website/getsontypes",{"topid":$("#brandcid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandtypeid")});
+                $("#brandtypeid").on("change",function(){getBdname('/website/getbdname',{"brandtypeid":$("#brandtypeid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandid")});
                 $("#brandid").on("change",function(){getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")});
-                $('input[type="radio"].flat-red').on('ifChecked', function(){
+                getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")
+                $('#basic_info input[type="radio"].flat-red').on('ifChecked', function(){
                     $("#webname").val($("input[type='radio']:checked").val())
                     getCurrentCidinfo();
                     getNavs()
@@ -402,8 +442,10 @@
                         "articletypeid":$("#articletypeid").select2("val"),
                         "description":$("#description").val(),
                         "keywords":$("#keywords").val(),
-                        "published_at":$("#published_at").val(),
+                        "published_at":$("#datepicker").val(),
                         "webname":$("#webname").val(),
+                        "ismake": $('input[name="ismake"]:checked').val(),
+                        "xiongzhang": $('input[name="xiongzhang"]:checked').val(),
                         "body":ue.getContent()
                     },
                     datatype: "json",
@@ -411,7 +453,8 @@
                         $("#title").val('');
                         $("#keywords").val('');
                         ue.setContent('')
-                        alert(response)
+                        $("#modal-body").html(response)
+                        $('#myModal').modal()
                         return false;
                     }
                 });
