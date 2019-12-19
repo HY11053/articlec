@@ -277,6 +277,15 @@
                 $("#brandcid").select2().val({{$thisbrandid["cid"]}}).trigger("change");
                 $("#brandtypeid").select2().val({{$thisbrandid["typeid"]}}).trigger("change");
                 $("#brandid").select2().val({{$thisbrandid["id"]}}).trigger("change");
+                $("#brandid").on("change",function(){getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")});
+                $('input[type="radio"].flat-red').on('ifChecked', function(){
+                    $("#webname").val($("input[type='radio']:checked").val())
+                    getCurrentCidinfo();
+                    getNavs()
+                    $("#brandcid").on("change",function(){getsonTypes("/website/getsontypes",{"topid":$("#brandcid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandtypeid")});
+                    $("#brandtypeid").on("change",function(){getBdname('/website/getbdname',{"brandtypeid":$("#brandtypeid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandid")});
+                    $("#brandid").on("change",function(){getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")});
+                });
              @else
                 getCurrentCidinfo();
                 $("#webname").val($("input[type='radio']:checked").val())
