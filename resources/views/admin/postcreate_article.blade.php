@@ -116,7 +116,7 @@
             <!-- /.col -->
             {!! Form::close() !!}
 
-            {{Form::model($createinfo,array('route' =>array('articlepush'),'method' => 'post','files' => false,'id'=>'formsubmit','onsubmit'=>"return false;"))}}
+            {{Form::open(array('route' =>array('articlepush'),'method' => 'post','files' => false,'id'=>'formsubmit','onsubmit'=>"return false;"))}}
             <div class="col-md-12">
                 <!-- The time line -->
                 <ul class="timeline">
@@ -377,8 +377,8 @@
                         "title":$("#title").val(),
                         "brandcid":$("#brandcid").select2("val"),
                         "brandtypeid":$("#brandtypeid").select2("val"),
-                        "brandid":$("#brandtypeid").select2("val"),
-                        "articletypeid":$("#brandtypeid").select2("val"),
+                        "brandid":$("#brandid").select2("val"),
+                        "articletypeid":$("#articletypeid").select2("val"),
                         "description":$("#description").val(),
                         "keywords":$("#keywords").val(),
                         "published_at":$("#published_at").val(),
