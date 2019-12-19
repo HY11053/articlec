@@ -4,7 +4,7 @@ namespace App\AdminModel;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ArticleTmpSource extends Model
+class ArticleCollection extends Model
 {
     protected $guarded=[];
 }
