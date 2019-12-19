@@ -1,6 +1,6 @@
 @if($title)<h1> {{$createinfo->get('brandname')}}{{$title}}</h1>@endif
-@foreach(explode(PHP_EOL,$articleinfos) as $articleinfo)
-    <p>{!! $articleinfo !!}</p>
+@foreach(explode(PHP_EOL,$brandinfos) as $brandinfo)
+    <div>{!! $brandinfo !!}</div>
 @endforeach
 @if(isset($articlecontents))
     @foreach($articlecontents as $content_type=>$articlecontent)

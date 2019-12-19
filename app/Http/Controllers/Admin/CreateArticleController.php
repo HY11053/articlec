@@ -11,6 +11,7 @@ use App\AdminModel\TitleSource;
 use App\AdminModel\Websites;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateArticleRequest;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class CreateArticleController extends Controller
@@ -32,11 +33,11 @@ class CreateArticleController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function PostCreateArticle (Request $request){
-        $articletypes=ArticleType::orderBy('id','asc')->get(['id','content_type']);
         $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
         $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
+        $articletypes=ArticleType::orderBy('id','asc')->get(['id','content_type']);
         $createinfo=collect(['brandname'=>$request->brandname,'typeid'=>$request->typeid,'title_typeid'=>$request->title_typeid,'content_type'=>$request->content_type]);
-        $articleinfos=BrandInfo::where('brandname','like',$request->brandname.'%')->inRandomOrder()->value('brandinfo');//strip_tags(
+        $brandinfos=BrandInfo::where('brandname','like',$request->brandname.'%')->inRandomOrder()->value('brandinfo');//strip_tags(
         $title=TitleSource::where('typeid',$request->title_typeid)->inRandomOrder()->value('title');
         $content_types=$request->content_type;
         $articlecontents=[];
@@ -49,8 +50,68 @@ class CreateArticleController extends Controller
         }
         $website=$request->website;
         $websites=Websites::where('isused',1)->get(['id','webname']);
-        return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','articleinfos','articlecontents','createinfo','title','websites','website'));
+        //自动获取当前品牌所属分类
+        $thisbrandid=$this->getWebsiteBrandid($website,$request->brandname);
+        if (!empty($thisbrandid)){
+            $thisbrandid= json_decode($thisbrandid,true);
+            $brandcid=json_decode($this->GetWebsiteTid($website),true);
+            $brandtypeid=json_decode($this->GetWebsiteSontypes($website,$thisbrandid["cid"]),true);
+            $brandid=json_decode($this->GetWebsiteBdname($website,$thisbrandid["typeid"]),true);
+        }else{
+            $thisbrandid='';
+            $brandcid=[];
+            $brandtypeid=[];
+            $brandid=[];
+        }
+
+        return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thisbrandid','brandcid','brandtypeid','brandid'));
     }
+
+    /**获取当前品牌id
+     * @param $websites
+     * @param $brandname
+     * @return mixed
+     */
+    private function getWebsiteBrandid($websites,$brandname){
+        $client = new Client();
+        $weburl=trim(Websites::where('id',$websites)->value('weburl'),'/');
+        $brandidResponse = $client->get($weburl.'/api/getbrandidapi/?brandname='.$brandname,['verify' => false])->getBody();
+        return $brandidResponse;
+    }
+    /**获取对应绑定站点顶级品牌分类
+     * @param Request $request
+     * @return mixed
+     */
+    private function GetWebsiteTid($website)
+    {
+        $client = new Client();
+        $weburl=trim(Websites::where('id',$website)->value('weburl'),'/');
+        $brandarticlesResponse = $client->get($weburl.'/api/brandtidapi/',['verify' => false])->getBody();
+        return $brandarticlesResponse;
+    }
+
+    /**获取对应绑定站点对应顶级分类下子分类
+     * @param Request $request
+     * @return mixed
+     */
+    private function GetWebsiteSontypes($website,$cid){
+        $client = new Client();
+        $weburl=trim(Websites::where('id',$website)->value('weburl'),'/');
+        $brandarticlesResponse = $client->get($weburl.'/api/brandcidapi/?topid='.$cid,['verify' => false])->getBody();
+        return $brandarticlesResponse;
+    }
+
+    /**获取对应品牌分类下品牌名称
+     * @param Request $request
+     * @return mixed
+     */
+    private function GetWebsiteBdname($website,$typeid){
+        $client = new Client();
+        $weburl=trim(Websites::where('id',$website)->value('weburl'),'/');
+        $brandarticlesResponse = $client->get($weburl.'/api/getbdnameapi/?brandtypeid='.$typeid,['verify' => false])->getBody();
+        return $brandarticlesResponse;
+    }
+
 
     public function CreateBrandArticle (){
         exit('功能暂不开放');

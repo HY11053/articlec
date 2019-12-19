@@ -115,7 +115,6 @@
             </div>
             <!-- /.col -->
             {!! Form::close() !!}
-
             {{Form::open(array('route' =>array('articlepush'),'method' => 'post','files' => false,'id'=>'formsubmit','onsubmit'=>"return false;"))}}
             <div class="col-md-12">
                 <!-- The time line -->
@@ -152,7 +151,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-cogs" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('brandcid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'brandcid','style'=>'width: 100%','required'=>'required'))}}
+                                        {{Form::select('brandcid',  $brandcid, null,array('class'=>'form-control  pull-right select2' ,'id'=>'brandcid','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -161,7 +160,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-cog" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('brandtypeid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'brandtypeid','style'=>'width: 100%','required'=>'required'))}}
+                                        {{Form::select('brandtypeid', $brandtypeid, null,array('class'=>'form-control  pull-right select2' ,'id'=>'brandtypeid','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -170,7 +169,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-flag-checkered" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('brandid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'brandid','style'=>'width: 100%','required'=>'required'))}}
+                                        {{Form::select('brandid', $brandid, null,array('class'=>'form-control  pull-right select2' ,'id'=>'brandid','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
 
@@ -270,21 +269,32 @@
         $(function () {
             $('.basic_info input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({ checkboxClass: 'icheckbox_flat-green', radioClass: 'iradio_flat-green'});
             $('#datepicker').datepicker({autoclose: true,language: 'zh-CN',todayHighlight: true });
-            getCurrentCidinfo();
-            getNavs()
             $('.select2').select2({language: "zh-CN"});
-            $("#webname").val($("input[type='radio']:checked").val())
-            $("#brandcid").on("change",function(){getsonTypes("/website/getsontypes",{"topid":$("#brandcid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandtypeid")});
-            $("#brandtypeid").on("change",function(){getBdname('/website/getbdname',{"brandtypeid":$("#brandtypeid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandid")});
-            $("#brandid").on("change",function(){getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")});
-            $('input[type="radio"].flat-red').on('ifChecked', function(){
-                $("#webname").val($("input[type='radio']:checked").val())
+            getNavs()
+            @if(!empty($thisbrandid) && isset($thisbrandid["cid"]))
+                $("#brandcid").select2().val({{$thisbrandid["cid"]}}).trigger("change");
+                $("#brandtypeid").select2().val({{$thisbrandid["typeid"]}}).trigger("change");
+                $("#brandid").select2().val({{$thisbrandid["id"]}}).trigger("change");
+             @else
                 getCurrentCidinfo();
-                getNavs()
+                $("#webname").val($("input[type='radio']:checked").val())
                 $("#brandcid").on("change",function(){getsonTypes("/website/getsontypes",{"topid":$("#brandcid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandtypeid")});
                 $("#brandtypeid").on("change",function(){getBdname('/website/getbdname',{"brandtypeid":$("#brandtypeid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandid")});
                 $("#brandid").on("change",function(){getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")});
-            });
+                $('input[type="radio"].flat-red').on('ifChecked', function(){
+                    $("#webname").val($("input[type='radio']:checked").val())
+                    getCurrentCidinfo();
+                    getNavs()
+                    $("#brandcid").on("change",function(){getsonTypes("/website/getsontypes",{"topid":$("#brandcid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandtypeid")});
+                    $("#brandtypeid").on("change",function(){getBdname('/website/getbdname',{"brandtypeid":$("#brandtypeid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandid")});
+                    $("#brandid").on("change",function(){getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")});
+                });
+             @endif
+            /**
+             *
+
+
+             */
         })
         //获取默认站点下品牌顶级分类信息
         function getCurrentCidinfo() {
@@ -294,7 +304,7 @@
                     success:function (response) {
                         var contents='';
                         for (type in response) {
-                            contents += '<option value="' + response[type]['id'] + '">' + response[type]['typename'] + '</option>';
+                            contents += '<option value="' + type + '">' + response[type] + '</option>';
                         }
                         $('#brandcid').html(contents);
                         //console.log($("#brandcid").select2("val"))
@@ -311,7 +321,7 @@
                     success:function (response) {
                         var contents='';
                         for (type in response) {
-                            contents += '<option value="' + response[type]['id']  + '">' + response[type]['typename'] + '</option>';
+                            contents += '<option value="' + type + '">' + response[type] + '</option>';
                         }
                         $(element).html(contents);
                         getBdname('/website/getbdname',{"brandtypeid":$("#brandtypeid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandid")
@@ -327,7 +337,7 @@
                     success:function (response) {
                         var contents='';
                         for (type in response) {
-                            contents += '<option value="' +  response[type]['id'] + '">' + response[type]['brandname'] + '</option>';
+                            contents += '<option value="' + type + '">' + response[type] + '</option>';
                         }
                         $(element).html(contents);
                         getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")
