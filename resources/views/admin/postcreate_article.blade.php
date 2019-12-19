@@ -271,6 +271,8 @@
             $('#datepicker').datepicker({autoclose: true,language: 'zh-CN',todayHighlight: true });
             $('.select2').select2({language: "zh-CN"});
             getNavs()
+            getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")
+            $("#webname").val($("input[type='radio']:checked").val())
             @if(!empty($thisbrandid) && isset($thisbrandid["cid"]))
                 $("#brandcid").select2().val({{$thisbrandid["cid"]}}).trigger("change");
                 $("#brandtypeid").select2().val({{$thisbrandid["typeid"]}}).trigger("change");
