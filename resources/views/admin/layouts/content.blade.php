@@ -7,6 +7,7 @@
         @if(!empty($articlecontent))
             <h3>{{$createinfo->get('brandname')}}{{$content_type}}</h3>
             @if(isset($articlecontent->content))
+                <h1>{{$articlecontent->id}}</h1>
                 @foreach(explode('@@',$articlecontent->content) as $content)
                     <p>{{str_replace('{}',$createinfo->get('brandname'),$content)}}</p>
                 @endforeach
