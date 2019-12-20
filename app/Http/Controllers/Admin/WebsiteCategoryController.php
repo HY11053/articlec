@@ -128,6 +128,8 @@ class WebsiteCategoryController extends Controller
                 'description' =>$request->description,
                 'published_at' =>$request->published_at,
                 'body' =>$request->body,
+                'ismake' =>$request->ismake,
+                'xiongzhang'=>$request->xiongzhang,
                 'write'=>Auth::user()->name,
             ]
         ]);
