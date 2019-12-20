@@ -135,4 +135,8 @@ class WebsiteCategoryController extends Controller
         ]);
         return $response->getBody();
     }
+
+    public function PostBrandArticlePush(CreateArticleRequest $request){
+
+    }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateArticleRequest extends FormRequest
+class CreateBrandArticleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,18 +25,10 @@ class CreateArticleRequest extends FormRequest
     {
         return [
             'title'=>'required|max:100|min:5',
-            'webname'=>'required',
-            'keywords'=>'required',
-            'brandcid'=>'required',
             'brandtypeid'=>'required',
-            'brandid'=>'required',
-            'body'=>'required',
-            'articletypeid'=>'required',
             'ismake'=>'required|numeric',
-            //'ismake'=>'required|numeric',
-            //'mid'=>'numeric',
-
-
+            'body'=>'required',
+            'image'=> 'mimes:jpeg,jpg,gif,bmp,png|image'
         ];
     }
 }

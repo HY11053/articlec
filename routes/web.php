@@ -75,6 +75,7 @@ Route::middleware(['auth'])->group(function ()
     Route::get('/create/article', 'CreateArticleController@CreateArticle');
     Route::post('/create/article', 'CreateArticleController@PostCreateArticle')->name('articlecreate');
     Route::get('/create/brandarticle', 'CreateArticleController@CreateBrandArticle');
+    Route::post('/create/brandarticle', 'CreateArticleController@PostCreateBrandArticle')->name('brandarticlecreate');
     //品牌搜索
     Route::post('/search/brand', 'BrandInfoController@BrandSearch');
     //获取站点分类
@@ -89,6 +90,7 @@ Route::middleware(['auth'])->group(function ()
     Route::post('/website/getnavsinfo', 'WebsiteCategoryController@GetWebsitenavs');
     Route::post('/website/getbrandpic', 'WebsiteCategoryController@GetBrandPics');
     Route::post('/website/article/push', 'WebsiteCategoryController@PostArticlePush')->name('articlepush');
+    Route::post('/website/brandarticle/push', 'WebsiteCategoryController@PostBrandArticlePush')->name('brandarticlepush');
 
     //智能创作平台
     Route::post('/baidunpl/getecnet', 'BaiduNlpController@Ecnet');
