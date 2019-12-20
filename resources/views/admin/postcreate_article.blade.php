@@ -332,7 +332,7 @@
                 $("#brandcid").on("change",function(){getsonTypes("/website/getsontypes",{"topid":$("#brandcid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandtypeid")});
                 $("#brandtypeid").on("change",function(){getBdname('/website/getbdname',{"brandtypeid":$("#brandtypeid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandid")});
                 $("#brandid").on("change",function(){getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")});
-                $('input[type="radio"].flat-red').on('ifChecked', function(){
+                $('#basic_info input[type="radio"].flat-red').on('ifChecked', function(){
                     $("#webname").val($("input[type='radio']:checked").val())
                     getCurrentCidinfo();
                     getNavs()
