@@ -55,9 +55,9 @@ class ArticleTypeController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function PostArticletypeEdit(Request $request,$id){
-        if (ArticleType::where('content_type',$request->content_type)->value('id')){
+        /*if (ArticleType::where('content_type',$request->content_type)->value('id')){
             exit('当前内容分类已存在，不可修改为相同的分类名称');
-        }
+        }*/
         ArticleType::findOrFail($id)->update($request->all());
         return redirect(action('ArticleTypeController@ArticletypeLists'));
     }

@@ -20,7 +20,10 @@
             <p class="login-box-msg">添加对应内容分类</p>
             {{Form::open(array('route' => 'articletypeadd','files' => false))}}
             <div class="form-group">
-                {{Form::text('content_type', null, array('class' => 'form-control','id'=>'title','placeholder'=>'内容分类名称',"required"=>"required","autocomplete"=>"off"))}}
+                {{Form::text('content_type', null, array('class' => 'form-control','id'=>'content_type','placeholder'=>'内容分类名称',"required"=>"required","autocomplete"=>"off"))}}
+            </div>
+            <div class="form-group">
+                {{Form::text('sortrank', null, array('class' => 'form-control','id'=>'sortrank','placeholder'=>'内容分类排序',"required"=>"required","autocomplete"=>"off"))}}
             </div>
             <button type="submit" class="btn btn-primary block full-width m-b">添加内容分类</button>
             {!! Form::close() !!}

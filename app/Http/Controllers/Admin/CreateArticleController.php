@@ -22,7 +22,7 @@ class CreateArticleController extends Controller
      */
     public function CreateArticle(Request $request){
         $this->ArticletitleCheck($request->brandname);
-        $articletypes=ArticleType::orderBy('id','asc')->get(['id','content_type']);
+        $articletypes=ArticleType::orderBy('sortrank','asc')->get(['id','content_type']);
         $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
         $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
         $websites=Websites::where('isused',1)->get(['id','webname']);
@@ -38,7 +38,7 @@ class CreateArticleController extends Controller
         $this->ArticletitleCheck($request->brandname);
         $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
         $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
-        $articletypes=ArticleType::orderBy('id','asc')->get(['id','content_type']);
+        $articletypes=ArticleType::orderBy('sortrank','asc')->get(['id','content_type']);
         $createinfo=collect(['brandname'=>$request->brandname,'typeid'=>$request->typeid,'title_typeid'=>$request->title_typeid,'content_type'=>$request->content_type]);
         $brandinfos=BrandInfo::where('brandname','like',$request->brandname.'%')->inRandomOrder()->value('brandinfo');//strip_tags(
         $title=TitleSource::where('typeid',$request->title_typeid)->inRandomOrder()->value('title');
