@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateArticleRequest;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CreateArticleController extends Controller
 {
@@ -20,6 +21,7 @@ class CreateArticleController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function CreateArticle(Request $request){
+        $this->ArticletitleCheck($request->brandname);
         $articletypes=ArticleType::orderBy('id','asc')->get(['id','content_type']);
         $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
         $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
@@ -33,6 +35,7 @@ class CreateArticleController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function PostCreateArticle (Request $request){
+        $this->ArticletitleCheck($request->brandname);
         $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
         $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
         $articletypes=ArticleType::orderBy('id','asc')->get(['id','content_type']);
@@ -115,6 +118,22 @@ class CreateArticleController extends Controller
 
     public function CreateBrandArticle (){
         exit('功能暂不开放');
+    }
+
+    private function ArticletitleCheck($brandname)
+    {
+        if (Storage::exists('guarded.txt'))
+        {
+            $filtertitles=array_unique(array_filter(explode(PHP_EOL,Storage::get('guarded.txt'))));
+            foreach ($filtertitles as $filtertitle)
+            {
+                //dd(strstr($brandname,str_replace([PHP_EOL,"\r"],'',trim($filtertitle))));
+                if (strstr($brandname,str_replace([PHP_EOL,"\r"],'',trim($filtertitle))))
+                {
+                    exit('违禁词，不允许发布');
+                }
+            }
+        }
     }
 
 }
