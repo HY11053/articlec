@@ -1,5 +1,5 @@
 @extends('admin.layouts.admin_app')
-@section('title')数据内容导入@stop
+@section('title')加盟费用内容添加@stop
 @section('head')
     <link href="/adminlte/plugins/iCheck/all.css" rel="stylesheet">
     <link href="/adminlte/plugins/iCheck/flat/green.css" rel="stylesheet">
@@ -20,13 +20,13 @@
 @stop
 @section('header_position')
     <section class="content-header">
-        <h1>Article Data Import<small>Article Data Import</small></h1>
-        <ol class="breadcrumb"><li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li><li class="active">ArticleDataImport</li></ol>
+        <h1>PaymentAdd<small>PaymentAdd</small></h1>
+        <ol class="breadcrumb"><li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li><li class="active">PaymentAdd</li></ol>
     </section>
 @stop
 @section('content')
     <div class="row">
-        {{Form::open(array('route' => 'fmimportcontents'))}}
+        {{Form::open(array('route' => 'paymentadd'))}}
         <div class="col-md-12">
             <!-- The time line -->
             <ul class="timeline">
@@ -41,7 +41,7 @@
                     <i class=" fa fa-file-text bg-maroon"></i>
 
                     <div class="timeline-item">
-                        <span class="time"><i class="fa fa-bell-o"></i> {}为需要替换的品牌名称,@@为需要关联的换行 一行一组 最大不超过500行</span>
+                        <span class="time"><i class="fa fa-bell-o"></i>各费用模板以,分割 example:加盟费用,设备费用,店面租金</span>
 
                         <h3 class="timeline-header"><a href="#">数据内容导入|</a> 请按需导入</h3>
 
@@ -54,16 +54,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-random" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('typeid', $categoryTypes, null,array('class'=>'form-control pull-right select2'))}}
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    {{Form::label('content_type',  '内容分类', array('class' => 'control-label col-md-2 col-sm-3 col-xs-12','style'=>'padding-top:5px;'))}}
-                                    <div class="col-md-8 input-group col-sm-9 col-xs-12">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-file-text-o" style="width:10px;"></i>
-                                        </div>
-                                        {{Form::select('content_type', $contentTypes, null,array('class'=>'form-control pull-right select2'))}}
+                                        {{Form::select('typeid', $categorynavs, null,array('class'=>'form-control pull-right select2'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -105,6 +96,6 @@
         $(function () {
             $('.select2').select2({language: "zh-CN"});
         });
-        </script>
+    </script>
 @stop
 

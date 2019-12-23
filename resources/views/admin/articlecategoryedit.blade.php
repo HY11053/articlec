@@ -18,7 +18,7 @@
         </div>
         <div class="register-box-body">
             <p class="login-box-msg">编辑对应行业分类</p>
-            {{Form::model($thisarticlecategory,array('route' =>array( 'articlecategoryedit','id'=>$id),'method' => 'put','files' => false,))}}
+            {{Form::model($thisarticlecategory,array('route' =>array( 'paymengcategoryedit','id'=>$id),'method' => 'put','files' => false,))}}
             <div class="form-group">
                 {{Form::text('typename', null, array('class' => 'form-control','id'=>'title','placeholder'=>'行业名称',"required"=>"required","autocomplete"=>"off"))}}
             </div>

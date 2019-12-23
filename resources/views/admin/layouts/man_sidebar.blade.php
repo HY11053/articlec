@@ -157,7 +157,15 @@
                     <li @if(Request::getRequestUri()=='/website/add')class="active"@endif><a href="/website/add"><i class="fa fa-circle-o"></i> 站点绑定添加</a></li>
                 </ul>
             </li>
-            <li><a href="https://github.com/HY11053/laravelcms"><i class="fa fa-book"></i> <span>后台使用文档</span></a></li>
+            <li class="treeview">
+                <a href="https://github.com/HY11053/laravelcms"><i class="fa fa-book"></i> <i class="fa fa-angle-left pull-right"></i><span>加盟费用管理</span></a>
+                <ul class="treeview-menu">
+                    <li @if(Request::getRequestUri()=='/payment/categoryadd')class="active"@endif><a href="/payment/categoryadd"><i class="fa fa-circle-o"></i> 行业费用分类</a></li>
+                    <li @if(Request::getRequestUri()=='/payment/categorylists')class="active"@endif><a href="/payment/categorylists"><i class="fa fa-circle-o"></i> 费用分类列表</a></li>
+                    <li @if(Request::getRequestUri()=='/payment/add')class="active"@endif><a href="/payment/add"><i class="fa fa-circle-o"></i> 加盟费用添加</a></li>
+                    <li @if(Request::getRequestUri()=='/payment/list')class="active"@endif><a href="/payment/list"><i class="fa fa-circle-o"></i> 加盟费用列表</a></li>
+                </ul>
+            </li>
             <li class="header">员工考核管理</li>
             <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>周工作总结</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>待办事项</span></a></li>

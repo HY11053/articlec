@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\AdminModel\ArticleCategory;
+use App\AdminModel\ArticleCollection;
 use App\AdminModel\ArticleType;
 use App\AdminModel\BrandInfo;
 use App\AdminModel\ContentSource;
@@ -39,6 +40,7 @@ class CreateArticleController extends Controller
         $articletypes=ArticleType::orderBy('sortrank','asc')->get(['id','content_type']);
         $createinfo=collect(['brandname'=>$request->brandname,'typeid'=>$request->typeid,'title_typeid'=>$request->title_typeid,'content_type'=>$request->content_type]);
         $brandinfos=BrandInfo::where('brandname','like',$request->brandname.'%')->inRandomOrder()->value('brandinfo');//strip_tags(
+        $collectcontent=strip_tags(ArticleCollection::where('brandname','like','%'.$request->brandname.'%')->orWhere('title','like','%'.$request->brandname.'%')->inRandomOrder()->value('body'));
         $title=TitleSource::where('typeid',$request->title_typeid)->inRandomOrder()->value('title');
         $content_types=$request->content_type;
         $articlecontents=[];
@@ -65,7 +67,7 @@ class CreateArticleController extends Controller
             $brandid=[];
         }
 
-        return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thisbrandid','brandcid','brandtypeid','brandid'));
+        return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thisbrandid','brandcid','brandtypeid','brandid','collectcontent'));
     }
 
     /**获取当前品牌id

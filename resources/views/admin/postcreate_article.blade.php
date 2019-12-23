@@ -226,6 +226,21 @@
                             </div>
                         </div>
                     </li>
+                    <li>
+                        <i class="fa   fa-recycle bg-yellow"></i>
+
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-file-text-o"></i> 当前品牌相关资讯，按需截取内容</span>
+
+                            <h3 class="timeline-header">当前品牌资讯相关内容资讯</h3>
+
+                            <div class="timeline-body">
+                                   {!! $collectcontent !!}
+                            </div>
+                            <div class="timeline-footer">
+                            </div>
+                        </div>
+                    </li>
                     <!-- END timeline item -->
                     <li>
                         <i class="fa fa-camera bg-purple"></i>

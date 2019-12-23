@@ -91,7 +91,18 @@ Route::middleware(['auth'])->group(function ()
     Route::post('/website/getbrandpic', 'WebsiteCategoryController@GetBrandPics');
     Route::post('/website/article/push', 'WebsiteCategoryController@PostArticlePush')->name('articlepush');
     Route::post('/website/brandarticle/push', 'WebsiteCategoryController@PostBrandArticlePush')->name('brandarticlepush');
+    //加盟费用管理
+    Route::get('/payment/categorylists', 'PaymentCategoryController@PaymentCategoryList');
+    Route::get('/payment/categoryadd', 'PaymentCategoryController@PaymentAdd');
+    Route::post('/payment/categoryadd', 'PaymentCategoryController@PostPaymentAdd')->name('paymengcategoryadd');
+    Route::get('/payment/categoryedit/{id}', 'PaymentCategoryController@PaymentEdit');
+    Route::put('/payment/categoryedit/{id}', 'PaymentCategoryController@PostPaymentEdit')->name('paymengcategoryedit');
 
+    Route::get('/payment/lists', 'PaymentController@PaymentList');
+    Route::get('/payment/add', 'PaymentController@Paymentadd');
+    Route::post('/payment/add', 'PaymentController@PostPaymentadd')->name('paymentadd');
+    Route::get('/payment/edit/{id}', 'PaymentController@Paymentedit');
+    Route::put('/payment/edit/{id}', 'PaymentController@PostPaymentedit')->name('paymentedit');
     //智能创作平台
     Route::post('/baidunpl/getecnet', 'BaiduNlpController@Ecnet');
 });
