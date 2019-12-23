@@ -185,16 +185,16 @@
                                 <div class="form-group col-md-12 ">
                                     {{Form::label('ismake', '文章状态', array('class' => 'control-label col-md-1'))}}
                                     <div class="radio col-md-4">
-                                        {{Form::radio('ismake', '1', true,array('class'=>'flat-red','checked'=>'checked'))}} 已审核
-                                        {{Form::radio('ismake', '0', false,array('class'=>'flat-red'))}}未审核
+                                        {{Form::radio('ismake', '1', true,array('class'=>'flat-red','checked'=>'checked','id'=>'isnake1'))}} 已审核
+                                        {{Form::radio('ismake', '0', false,array('class'=>'flat-red','id'=>'ismake0'))}}未审核
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 has-warning">
                                     {{Form::label('xiongzhang', '熊掌号推送', array('class' => 'control-label col-md-1'))}}
                                     <div class="radio col-md-4">
-                                        {{Form::radio('xiongzhang', '1', true,array('class'=>'flat-red'))}} 天级
-                                        {{Form::radio('xiongzhang', '2', false,array('class'=>'flat-red'))}}周级
-                                        {{Form::radio('xiongzhang', '0', false,array('class'=>'flat-red'))}}否
+                                        {{Form::radio('xiongzhang', '1', true,array('class'=>'flat-red','id'=>'xiongzhang1'))}} 天级
+                                        {{Form::radio('xiongzhang', '2', false,array('class'=>'flat-red','id'=>'xiongzhang2'))}}周级
+                                        {{Form::radio('xiongzhang', '0', false,array('class'=>'flat-red','id'=>'xiongzhang0'))}}否
                                         <span class="help-block" ><i class="fa fa-bell-o"></i> 天级收录内容享受天级抓取校验、快速展现优待。周级收录接口，每天可提交最多500万条有价值的内容，所提交内容会进入百度搜索统一处理流程，这个过程需要一段时间</span>
                                     </div>
                                 </div>
@@ -234,10 +234,11 @@
 
                             <h3 class="timeline-header">当前品牌资讯相关内容资讯</h3>
 
-                            <div class="timeline-body">
+                            <div class="timeline-body" id="collectcontent">
                                    {!! $collectcontent !!}
                             </div>
                             <div class="timeline-footer">
+                                <a class="btn btn-primary btn-sm" id="regencollect">重新生成</a>
                             </div>
                         </div>
                     </li>
@@ -441,7 +442,21 @@
                 });
         }
 
-
+        //重新生成相关内容
+        $("#regencollect").click(function () {
+            $.ajax(
+                {
+                    type:"POST",
+                    url:'/articlecollect/regenerate',
+                    data:{
+                        "brandname":$("#brandname").val()
+                    },
+                    datatype: "json",
+                    success:function (response) {
+                        $("#collectcontent").html(response)
+                    }
+                });
+        })
         //文档推送
         $('#formsubmit').submit(function(e) {
             e.preventDefault();

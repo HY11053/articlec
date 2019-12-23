@@ -36,14 +36,39 @@ class PaymentController extends Controller
         return redirect(action('PaymentController@PaymentList'));
     }
 
+    /**加盟费用内容编辑
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function Paymentedit($id){
         $thispaymentInfo=PaymentContent::findOrFail($id);
         $categorynavs=PaymentCategory::orderBy('id','desc')->pluck('category','id');
         return view('admin.paymentedit',compact('thispaymentInfo','categorynavs'));
     }
 
+    /**加盟费用内容编辑处理
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function PostPaymentedit(Request $request,$id){
         PaymentContent::findOrFail($id)->update($request->all());
         return redirect(action('PaymentController@PaymentList'));
+    }
+
+    /**加盟费用生成
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function Paymentgenerate(){
+        $paymentnavs=PaymentCategory::orderBy('id','desc')->pluck('category','id');
+        return view('admin.paymentgenerate',compact('paymentnavs'));
+    }
+
+    public function PostPaymentgenerate(Request $request){
+        $paymentnavs=PaymentCategory::orderBy('id','desc')->pluck('category','id');
+        $paymentinfos=array_unique(explode(',',PaymentContent::where('typeid',$request->typeid)->value('content')));
+        return view('admin.paymentgenerate',compact('paymentinfos','paymentnavs'));
+
     }
 }
