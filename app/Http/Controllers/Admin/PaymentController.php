@@ -60,9 +60,10 @@ class PaymentController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function Paymentgenerate(){
+    public function Paymentgenerate(Request $request){
         $paymentnavs=PaymentCategory::orderBy('id','desc')->pluck('category','id');
-        return view('admin.paymentgenerate',compact('paymentnavs'));
+        $paymentinfos=array_unique(explode(',',PaymentContent::where('typeid',$request->typeid)->value('content')));
+        return view('admin.paymentgenerate',compact('paymentnavs','paymentinfos'));
     }
 
     public function PostPaymentgenerate(Request $request){

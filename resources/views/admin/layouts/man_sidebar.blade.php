@@ -163,7 +163,7 @@
                     <li @if(Request::getRequestUri()=='/payment/categoryadd')class="active"@endif><a href="/payment/categoryadd"><i class="fa fa-circle-o"></i> 行业费用分类</a></li>
                     <li @if(Request::getRequestUri()=='/payment/categorylists')class="active"@endif><a href="/payment/categorylists"><i class="fa fa-circle-o"></i> 费用分类列表</a></li>
                     <li @if(Request::getRequestUri()=='/payment/add')class="active"@endif><a href="/payment/add"><i class="fa fa-circle-o"></i> 加盟费用添加</a></li>
-                    <li @if(Request::getRequestUri()=='/payment/list')class="active"@endif><a href="/payment/list"><i class="fa fa-circle-o"></i> 加盟费用列表</a></li>
+                    <li @if(Request::getRequestUri()=='/payment/lists')class="active"@endif><a href="/payment/lists"><i class="fa fa-circle-o"></i> 加盟费用列表</a></li>
                     <li @if(Request::getRequestUri()=='/payment/generate')class="active"@endif><a href="/payment/generate"><i class="fa fa-circle-o"></i> 加盟费用生成</a></li>
                 </ul>
             </li>
