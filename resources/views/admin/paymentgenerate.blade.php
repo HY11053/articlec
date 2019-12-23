@@ -93,8 +93,50 @@
                                     @endforeach
                                 @endif
                             </div>
-                            <div class="timeline-footer">
+                            <div class="timeline-footer clear">
                                 <a class="btn btn-primary btn-sm" id="regencollect">重新生成</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <i class="fa   fa-recycle bg-yellow"></i>
+
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-file-text-o"></i> 加盟费用生成结果样式预览</span>
+
+                            <h3 class="timeline-header">加盟费用生成结果样式预览</h3>
+
+                            <div class="timeline-body" id="collectcontent">
+                                <div class="timeline-body">
+                                    <table class="table table-hover  table-responsive table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <th>费用支出</th>
+                                            <th>一线城市</th>
+                                            <th>二线城市</th>
+                                            <th>县级城市</th>
+                                        </tr>
+                                        @foreach($paymentinfos as $paymentinfo)
+                                            <tr>
+                                                <td>{{$paymentinfo}}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        @endforeach
+                                        <tr>
+                                            <td>总投资费用</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="timeline-footer">
+                                <a class="btn btn-primary btn-sm" id="regencollect">复制生成结果</a>
                             </div>
                         </div>
                     </li>
