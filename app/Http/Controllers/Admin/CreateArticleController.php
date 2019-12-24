@@ -55,7 +55,7 @@ class CreateArticleController extends Controller
         $websites=Websites::where('isused',1)->get(['id','webname']);
         //自动获取当前品牌所属分类
         $thisbrandid=$this->getWebsiteBrandid($website,$request->brandname);
-        if (!empty($thisbrandid)){
+        if (!empty(json_decode($thisbrandid,true))){
             $thisbrandid= json_decode($thisbrandid,true);
             $brandcid=json_decode($this->GetWebsiteTid($website),true);
             $brandtypeid=json_decode($this->GetWebsiteSontypes($website,$thisbrandid["cid"]),true);

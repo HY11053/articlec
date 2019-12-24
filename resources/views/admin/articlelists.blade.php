@@ -3,6 +3,8 @@
 @section('head')
     <link href="/adminlte/plugins/iCheck/all.css" rel="stylesheet">
     <link href="/adminlte/plugins/iCheck/flat/green.css" rel="stylesheet">
+    <link rel="stylesheet" href="/adminlte/plugins/datepicker/datepicker3.css">
+    <link href="/adminlte/plugins/select2/select2.min.css" rel="stylesheet">
     <style>.red{color: red;}</style>
 @stop
 @section('header_position')
@@ -15,24 +17,46 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
-                <div class="box-header">
+
+                <div class="box-header with-border">
                     <h3 class="box-title">文档列表管理 文档总计{{$articles->total()}}</h3>
-                    <div class="box-tools">
-                        <div class="pull-right" style="display:inline-block; width: 220px">
-                            <a href="{{action('ArticleController@FmImportContents')}}" style="color: #ffffff ; display: inline-block; padding-left: 3px;"><button  class="btn btn-sm btn-default bg-blue"><i class="fa  fa-pencil-square" style="padding-right: 3px;"></i>表单提交导入</button></a>
-                            <a href="{{action('ArticleController@FmImportContents')}}" style="color: #ffffff ; display: inline-block; padding-left: 3px;"><button  class="btn btn-sm btn-default bg-green"><i class="fa  fa-pencil-square" style="padding-right: 3px;"></i>Excel导入</button></a>
-                        </div>
-                        <form action="/search/brand" method="post" class="form-group pull-right col-md-2 col-xs-6">
-                            <div class="input-group input-group-sm ">
-                                <input type="text" name="brandname" class="form-control pull-right" placeholder="品牌搜索">
-                                {{csrf_field()}}
-                                <div class="input-group-btn">
-                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            {{Form::open(array('route' => 'userdatainfo','files' => false,'class'=>'form-inline pull-right','method'=>'get'))}}
+                        <div class="form-group">
+                            <div class="input-group date " >
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar" style="width:10px;"></i>
                                 </div>
+                                {{Form::text('start_at', null, array('class' => 'form-control pull-right','id'=>'datepicker','placeholder'=>'开始时间', 'autocomplete'=>"off",'style'=>'width:100%'))}}
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="input-group date " >
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar" style="width:10px;"></i>
+                            </div>
+                            {{Form::text('end_at', null, array('class' => 'form-control pull-right','id'=>'datepicker1','placeholder'=>'结束时间','autocomplete'=>"off",'style'=>'width:100%'))}}
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-location-arrow" style="width:10px;"></i>
+                                </div>
+                                {{Form::select('typeid', ['标题模型','内容模型'], null,array('class'=>'form-control select2 pull-right','style'=>'width: 150px;','data-placeholder'=>"行业分类",'multiple'=>"multiple"))}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-location-arrow" style="width:10px;"></i>
+                                </div>
+                                {{Form::select('content_type', ['标题模型','内容模型'], null,array('class'=>'form-control select2 pull-right','style'=>'width: 150px;','data-placeholder'=>"内容分类",'multiple'=>"multiple"))}}
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger">筛选数据</button>
+                    {!! Form::close() !!}
+
                 </div>
+
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <div class="mailbox-controls">
@@ -83,4 +107,19 @@
     </div>
     <!-- /.content -->
 @stop
-
+@section('libs')
+    <script src="/adminlte/plugins/iCheck/icheck.min.js"></script>
+    <script src="/adminlte/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="/adminlte/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+    <script src="/adminlte/plugins/select2/select2.full.min.js"></script>
+    <script>
+        $('.select2').select2();
+        $(function () {
+            $('#datepicker,#datepicker1').datepicker({
+                autoclose: true,
+                language: 'zh-CN',
+                todayHighlight: true
+            });
+        });
+    </script>
+@stop
