@@ -80,20 +80,20 @@
                             <h3 class="timeline-header">加盟费用字段数值修改</h3>
 
                             <div class="timeline-body" id="collectcontent">
-                               @if(isset($paymentinfos))
-                                    @foreach($paymentinfos as $paymentinfo)
-                                        <div class="form-group col-md-6">
-                                            {{Form::label(app('pinyin')->abbr($paymentinfo), $paymentinfo, array('class' => 'control-label col-md-2'))}}
-                                            <div class="input-group col-md-10">
-                                                <div class="input-group-addon"><i class="fa fa-recycle" style="width:10px;"></i></div>
-                                                {{Form::number(app('pinyin')->abbr($paymentinfo),null, array('class' => 'form-control  pull-right','id'=>app('pinyin')->abbr($paymentinfo),'placeholder'=>'填入对应数值','v-model'=>app('pinyin')->abbr($paymentinfo)))}}
+
+                                @php
+                                    foreach ($paymentinfos as $paymentinfo) {
+                                    echo"<div class=\"form-group col-md-6\">
+                                            <label :for=\"".app('pinyin')->abbr($paymentinfo)."\" class=\"control-label col-md-2\">".$paymentinfo."</label>
+                                            <div class=\"input-group col-md-10\">
+                                                <div class=\"input-group-addon\"><i class=\"fa fa-recycle\" style=\"width:30px;\" @click=\"".app('pinyin')->abbr($paymentinfo)."sum"."+= 0.5\"  @contextmenu.prevent=\"".app('pinyin')->abbr($paymentinfo)."sum"."-= 0.5\"><strong style='color:red'>{{".app('pinyin')->abbr($paymentinfo)."sum"."}}</strong></i></div>
+                                                <input class=\"form-control  pull-right\" :id=\"".app('pinyin')->abbr($paymentinfo)."\" placeholder=\"填入对应数值\" v-model=\"".app('pinyin')->abbr($paymentinfo)."\" name=\"".app('pinyin')->abbr($paymentinfo)."\" type=\"number\">
                                             </div>
-                                        </div>
-                                    @endforeach
-                                @endif
+                                        </div>";
+                                }
+                                @endphp
                             </div>
-                            <div class="timeline-footer clear">
-                                <a class="btn btn-primary btn-sm" id="regencollect">重新生成</a>
+                            <div class="timeline-footer clear" style="clear:both;">
                             </div>
                         </div>
                     </li>
@@ -116,12 +116,18 @@
                                             <th>二线城市</th>
                                             <th>县级城市</th>
                                         </tr>
+                                        @php
+                                            foreach ($paymentinfos as $key=>$paymentinfo){
+                                             echo "
                                             <tr >
-                                                <td>{{$paymentinfo}}</td>
-                                                <td>{{ app('pinyin')->abbr($paymentinfo) }}</td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>$paymentinfo</td>
+                                                <td>{{ (+".app('pinyin')->abbr($paymentinfo).")+(+".app('pinyin')->abbr($paymentinfo)."*".app('pinyin')->abbr($paymentinfo)."sum"."*2".")}}</td>
+                                                <td>{{ (+".app('pinyin')->abbr($paymentinfo).")+(+".app('pinyin')->abbr($paymentinfo)."*".app('pinyin')->abbr($paymentinfo)."sum".")}}</td>
+                                                <td>{{ ".app('pinyin')->abbr($paymentinfo)."}}</td>
                                             </tr>
+                                            ";
+                                            }
+                                        @endphp
                                         <tr>
                                             <td>总投资费用</td>
                                             <td></td>
@@ -137,6 +143,60 @@
                             </div>
                         </div>
                     </li>
+
+                    <li>
+                        <i class="fa   fa-recycle bg-yellow"></i>
+
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-file-text-o"></i> 加盟费用生成结果样式预览</span>
+
+                            <h3 class="timeline-header">加盟费用生成结果样式预览</h3>
+
+                            <div class="timeline-body" id="collectcontent">
+                                <div class="timeline-body">
+                                    一点点奶茶的加盟费用及整店的投资总额根据不同的区域和店面类型，整体的投入会有移动的差异，
+                                    @php
+                                        echo "<p>一线城市上海、北京、广州：";
+                                            foreach ($paymentinfos as $key=>$paymentinfo){
+                                                     echo "
+                                                      $paymentinfo
+                                                        ：{{ (+".app('pinyin')->abbr($paymentinfo).")+(+".app('pinyin')->abbr($paymentinfo)."*".app('pinyin')->abbr($paymentinfo)."sum"."*2".")}}元
+                                                    ";
+                                                    }
+                                     echo "</p>"
+                                    @endphp
+                                    @php
+                                        echo "<p>二线城市南京、苏州、郑州：";
+                                        foreach ($paymentinfos as $key=>$paymentinfo){
+                                                 echo "
+                                                  $paymentinfo
+                                                   ： {{ (+".app('pinyin')->abbr($paymentinfo).")+(+".app('pinyin')->abbr($paymentinfo)."*".app('pinyin')->abbr($paymentinfo)."sum".")}}元
+                                                ";
+                                                }
+                                     echo "</p>"
+                                    @endphp
+
+                                    @php
+                                        echo "<p>普通县城：凤阳、固镇、睢宁:";
+                                        foreach ($paymentinfos as $key=>$paymentinfo){
+                                                 echo "
+                                                  $paymentinfo
+                                                    ：{{ (+".app('pinyin')->abbr($paymentinfo).")+(+".app('pinyin')->abbr($paymentinfo)."*".app('pinyin')->abbr($paymentinfo)."sum".")}}元
+                                                ";
+                                                }
+                                    echo "</p>"
+                                    @endphp
+
+
+                                </div>
+                            </div>
+                            <div class="timeline-footer">
+                                <a class="btn btn-primary btn-sm" id="regencollect">复制生成结果</a>
+                            </div>
+                        </div>
+                    </li>
+
+
                     <li>
                         <i class="fa fa-clock-o bg-gray"></i>
                     </li>
@@ -189,14 +249,13 @@
         var app =new Vue({
             el:'#paymentgenerateapp',
             data:{
-                @foreach($paymentinfos as $paymentinfo)
-                @if(!$loop->last)
-                {{app('pinyin')->abbr($paymentinfo)}}:'{{$paymentinfo}}',
-                @else
-                {{app('pinyin')->abbr($paymentinfo)}}:'{{$paymentinfo}}'
-                @endif
-                @endforeach
-            }
+        @foreach($paymentinfos as $paymentinfo)
+        {{app('pinyin')->abbr($paymentinfo)}}:{{rand(1000,10000)}},
+        @endforeach
+        @foreach($paymentinfos as $paymentinfo)
+        {{app('pinyin')->abbr($paymentinfo)}}sum:0,
+        @endforeach
+        },
         })
     </script>
 @stop

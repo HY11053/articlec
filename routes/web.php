@@ -103,6 +103,7 @@ Route::middleware(['auth'])->group(function ()
     Route::post('/payment/add', 'PaymentController@PostPaymentadd')->name('paymentadd');
     Route::get('/payment/edit/{id}', 'PaymentController@Paymentedit');
     Route::put('/payment/edit/{id}', 'PaymentController@PostPaymentedit')->name('paymentedit');
+    Route::post('/payment/info', 'PaymentController@getSignPayment');
     Route::get('/payment/generate', 'PaymentController@Paymentgenerate');
     Route::post('/payment/generate', 'PaymentController@PostPaymentgenerate')->name('paymentgenerate');
     //articlecollect

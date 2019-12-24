@@ -69,7 +69,17 @@ class PaymentController extends Controller
     public function PostPaymentgenerate(Request $request){
         $paymentnavs=PaymentCategory::orderBy('id','desc')->pluck('category','id');
         $paymentinfos=array_unique(explode(',',PaymentContent::where('typeid',$request->typeid)->value('content')));
-        return view('admin.paymentgenerate',compact('paymentinfos','paymentnavs'));
+        $typeid=$request->typeid;
+        return view('admin.paymentgenerate',compact('paymentinfos','paymentnavs','typeid'));
 
+    }
+
+    public function getSignPayment(Request $request){
+        $paymentinfos=array_unique(explode(',',PaymentContent::where('typeid',$request->typeid)->value('content')));
+        $newpaymentinfos=[];
+        foreach ($paymentinfos as $paymentinfo){
+            $newpaymentinfos[app('pinyin')->abbr($paymentinfo)]=$paymentinfo;
+        }
+        return \GuzzleHttp\json_encode($newpaymentinfos);
     }
 }
