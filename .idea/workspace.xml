@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c81e8df5-53fe-436b-87e9-ed4c5220fee1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/u88article.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/u88article.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CreateArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CreateArticleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/WebsiteCategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/WebsiteCategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/articlelists.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/articlelists.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/postcreate_brandarticle.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/postcreate_brandarticle.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
@@ -159,24 +159,26 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="php" value="19" />
+          <entry key="jpg" value="1" />
+          <entry key="php" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Blade" value="11" />
-          <entry key="PHP" value="8" />
+          <entry key="Image" value="1" />
+          <entry key="PHP" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="php" value="375" />
+          <entry key="php" value="802" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Blade" value="40" />
-          <entry key="PHP" value="335" />
+          <entry key="Blade" value="236" />
+          <entry key="PHP" value="566" />
         </counts>
       </usages-collector>
     </session>
@@ -186,8 +188,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/admin/postcreate_brandarticle.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5095">
-              <caret line="600" column="56" selection-start-line="600" selection-start-column="56" selection-end-line="600" selection-end-column="56" />
+            <state relative-caret-position="436">
+              <caret line="560" column="27" selection-start-line="560" selection-start-column="20" selection-end-line="560" selection-end-column="27" />
               <folding>
                 <element signature="e#1492#6962#0#HTML" />
               </folding>
@@ -196,10 +198,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/articlelists.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/UploadImagesController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+            <state relative-caret-position="325">
+              <caret line="18" column="46" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
+              <folding>
+                <element signature="e#46#82#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -207,17 +212,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="94" column="72" selection-start-line="94" selection-start-column="47" selection-end-line="94" selection-end-column="72" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/WebsiteCategoryController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="606">
-              <caret line="139" column="28" selection-start-line="139" selection-start-column="28" selection-end-line="139" selection-end-column="28" />
+            <state relative-caret-position="251">
+              <caret line="113" column="67" selection-start-line="113" selection-start-column="67" selection-end-line="113" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -225,8 +221,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/CreateArticleController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="858">
-              <caret line="171" lean-forward="true" selection-start-line="171" selection-end-line="171" />
+            <state relative-caret-position="190">
+              <caret line="132" column="61" selection-start-line="132" selection-start-column="61" selection-end-line="132" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/WebsiteCategoryController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="130">
+              <caret line="74" column="57" selection-start-line="74" selection-start-column="57" selection-end-line="74" selection-end-column="57" />
+              <folding>
+                <element signature="e#46#74#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -245,7 +253,6 @@
       <find>formsubmit</find>
       <find>articlepush</find>
       <find>checkAll</find>
-      <find>webname</find>
       <find>content_type</find>
       <find>$content_types</find>
       <find>str_contains</find>
@@ -254,6 +261,7 @@
       <find>brandarticlecreate</find>
       <find>PostBrandArticlePush</find>
       <find>/brandarticle/push</find>
+      <find>webname</find>
     </findStrings>
     <replaceStrings>
       <replace>内容</replace>
@@ -273,12 +281,13 @@
       <list>
         <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/ArticleController.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/layouts/header.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/articlelists.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/WebsiteCategoryController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/CreateArticleController.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/postcreate_brandarticle.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/articlelists.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/UploadImagesController.php" />
       </list>
     </option>
   </component>
@@ -402,6 +411,9 @@
       <path value="$PROJECT_DIR$/vendor/overtrue/laravel-ueditor" />
       <path value="$PROJECT_DIR$/vendor/overtrue/pinyin" />
       <path value="$PROJECT_DIR$/vendor/overtrue/laravel-pinyin" />
+      <path value="$PROJECT_DIR$/vendor/symfony/psr-http-message-bridge" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-diactoros" />
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
@@ -426,76 +438,47 @@
             <path>
               <item name="u88article" type="b2602c69:ProjectViewProjectNode" />
               <item name="u88article" type="462c0819:PsiDirectoryNode" />
+              <item name="storage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="u88article" type="b2602c69:ProjectViewProjectNode" />
+              <item name="u88article" type="462c0819:PsiDirectoryNode" />
+              <item name="storage" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="u88article" type="b2602c69:ProjectViewProjectNode" />
               <item name="u88article" type="462c0819:PsiDirectoryNode" />
+              <item name="storage" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="u88article" type="b2602c69:ProjectViewProjectNode" />
               <item name="u88article" type="462c0819:PsiDirectoryNode" />
+              <item name="storage" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="uploads" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="u88article" type="b2602c69:ProjectViewProjectNode" />
               <item name="u88article" type="462c0819:PsiDirectoryNode" />
+              <item name="storage" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="uploads" type="462c0819:PsiDirectoryNode" />
+              <item name="2019" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="u88article" type="b2602c69:ProjectViewProjectNode" />
               <item name="u88article" type="462c0819:PsiDirectoryNode" />
+              <item name="storage" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-              <item name="Auth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="u88article" type="b2602c69:ProjectViewProjectNode" />
-              <item name="u88article" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Auth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="u88article" type="b2602c69:ProjectViewProjectNode" />
-              <item name="u88article" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="u88article" type="b2602c69:ProjectViewProjectNode" />
-              <item name="u88article" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="u88article" type="b2602c69:ProjectViewProjectNode" />
-              <item name="u88article" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="u88article" type="b2602c69:ProjectViewProjectNode" />
-              <item name="u88article" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="layouts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="u88article" type="b2602c69:ProjectViewProjectNode" />
-              <item name="u88article" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="uploads" type="462c0819:PsiDirectoryNode" />
+              <item name="2019" type="462c0819:PsiDirectoryNode" />
+              <item name="12" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -514,7 +497,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SearchEverywhereHistoryKey" value="WebsiteCategoryController&#9;null&#9;null&#10;CreateArticleController&#9;null&#9;null&#10;web&#9;FILE&#9;file://F:/www/u88article/routes/web.php&#10;mans&#9;FILE&#9;file://F:/www/u88article/resources/views/admin/layouts/man_sidebar.blade.php&#10;we&#9;FILE&#9;file://F:/www/u88article/routes/web.php&#10;composer&#9;FILE&#9;file://F:/www/u88article/composer.json&#10;compo&#9;FILE&#9;file://F:/www/u88article/composer.json&#10;man&#9;FILE&#9;file://F:/www/u88article/resources/views/admin/layouts/man_sidebar.blade.php&#10;web.php&#9;FILE&#9;file://F:/www/u88article/routes/web.php&#10;.en&#9;FILE&#9;file://F:/www/u88article/.env&#10;create_article&#9;FILE&#9;file://F:/www/u88article/resources/views/admin/create_article.blade.php&#10;w&#9;FILE&#9;file://F:/www/u88article/routes/web.php&#10;articletypelists&#9;FILE&#9;file://F:/www/u88article/resources/views/admin/articletypelists.blade.php&#10;ArticleTypeController&#9;null&#9;null&#10;ArticleCategoryController&#9;FILE&#9;file://F:/www/u88article/app/Http/Controllers/Admin/ArticleCategoryController.php&#10;.env&#9;FILE&#9;file://F:/www/u88article/.env" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../u88cmsgit" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -597,12 +580,12 @@
       <workItem from="1576808099981" duration="13292000" />
       <workItem from="1577064498767" duration="20327000" />
       <workItem from="1577150382448" duration="24710000" />
-      <workItem from="1577236550323" duration="5592000" />
+      <workItem from="1577236550323" duration="19036000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5592000" />
+    <option name="totallyTimeSpent" value="19036000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -610,12 +593,12 @@
     <layout>
       <window_info id="npm" side_tool="true" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Terminal" weight="0.412595" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -719,41 +702,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/WebsiteCategoryController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/articlelists.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="606">
-          <caret line="139" column="28" selection-start-line="139" selection-start-column="28" selection-end-line="139" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/CreateArticleController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="858">
-          <caret line="171" lean-forward="true" selection-start-line="171" selection-end-line="171" />
+        <state relative-caret-position="259">
+          <caret line="24" column="151" selection-start-line="24" selection-start-column="151" selection-end-line="24" selection-end-column="151" />
+          <folding>
+            <element signature="e#1189#1255#0#HTML" expanded="true" />
+            <element signature="e#1336#1363#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="94" column="72" selection-start-line="94" selection-start-column="47" selection-end-line="94" selection-end-column="72" />
+        <state relative-caret-position="251">
+          <caret line="113" column="67" selection-start-line="113" selection-start-column="67" selection-end-line="113" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/app/public/uploads/2019/12/25/2ac472a34952ad684916fd806019ae0a.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/WebsiteCategoryController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="74" column="57" selection-start-line="74" selection-start-column="57" selection-end-line="74" selection-end-column="57" />
+          <folding>
+            <element signature="e#46#74#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/CreateArticleController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="132" column="61" selection-start-line="132" selection-start-column="61" selection-end-line="132" selection-end-column="61" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/postcreate_brandarticle.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5095">
-          <caret line="600" column="56" selection-start-line="600" selection-start-column="56" selection-end-line="600" selection-end-column="56" />
+        <state relative-caret-position="436">
+          <caret line="560" column="27" selection-start-line="560" selection-start-column="20" selection-end-line="560" selection-end-column="27" />
           <folding>
             <element signature="e#1492#6962#0#HTML" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/articlelists.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/UploadImagesController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+        <state relative-caret-position="325">
+          <caret line="18" column="46" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
+          <folding>
+            <element signature="e#46#82#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -110,6 +110,8 @@ Route::middleware(['auth'])->group(function ()
     Route::post('/payment/generate', 'PaymentController@PostPaymentgenerate')->name('paymentgenerate');
     //articlecollect
     Route::post('/articlecollect/regenerate', 'ArticleCollectController@PostRegenerate');
+    //图片上传
+    Route::post('/fileuploads', 'UploadImagesController@UploadImage');
 
     //智能创作平台
     Route::post('/baidunpl/getecnet', 'BaiduNlpController@Ecnet');

@@ -213,7 +213,7 @@
                             <span class="time"><i class="fa fa-clock-o"></i> {{date('D M j')}}</span>
                             <h3 class="timeline-header no-border"><a href="#">缩略图处理</a> 图片上传</h3>
                             <div class="timeline-body">
-                                {{Form::file('image', array('class' => 'file col-md-10','id'=>'input-2','data-show-upload'=>"false",'data-show-caption'=>"true",'accept'=>'image/*'))}}
+                                {{Form::file('litpic', array('class' => 'file-loading','id'=>'input-2','accept'=>'image/*'))}}
                             </div>
                         </div>
                     </li>
@@ -545,9 +545,30 @@
                 getCurrentCidinfo();
                 $("#brandcid").on("change",function(){getsonTypes("/website/getsontypes",{"topid":$("#brandcid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandtypeid")});
             });
+            $("#input-2").fileinput({
+                theme: 'fa',
+                uploadUrl: "/fileuploads",
+                allowedFileExtensions: ["jpg", "png", "gif",'jpeg'],
+                uploadAsync: true,
+                maxImageWidth: 600,
+                minFileCount: 1,
+                maxFileCount: 1,
+                language: 'zh',
+                overwriteInitial: false,
+                resizeImage: true,
+                initialPreviewAsData: true,
+                uploadExtraData: {    //上传额外数据
+                    img_key: "litpic",
+                }
+            }).on('fileuploaded', function(event, data, id, index) {
+                console.log(index)
+                $('#kv-success-box').html('上传成功！');
+                $('#kv-success-modal').modal('show');
+                $('.kv-file-remove').hide();
+            });
             $("#input-image-1").fileinput({
                 theme: 'fa',
-                uploadUrl: "/admin/upload/images",
+                uploadUrl: "/fileuploads",
                 allowedFileExtensions: ["jpg", "png", "gif",'jpeg'],
                 maxImageWidth: 1000,
                 minFileCount: 1,
@@ -556,6 +577,9 @@
                 overwriteInitial: false,
                 resizeImage: true,
                 initialPreviewAsData: true,
+                uploadExtraData: {    //上传额外数据
+                    img_key: "input-image-1",
+                }
             }).on('fileuploaded', function(e, params) {
                 $('#kv-success-box').html('上传成功！');
                 $('#kv-success-modal').modal('show');

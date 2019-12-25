@@ -102,6 +102,9 @@
       <path value="$PROJECT_DIR$/vendor/overtrue/laravel-ueditor" />
       <path value="$PROJECT_DIR$/vendor/overtrue/pinyin" />
       <path value="$PROJECT_DIR$/vendor/overtrue/laravel-pinyin" />
+      <path value="$PROJECT_DIR$/vendor/symfony/psr-http-message-bridge" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-diactoros" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
