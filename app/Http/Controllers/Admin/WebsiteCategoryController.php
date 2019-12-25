@@ -136,7 +136,7 @@ class WebsiteCategoryController extends Controller
         return $response->getBody();
     }
 
-    public function PostBrandArticlePush(CreateArticleRequest $request){
-
+    public function PostBrandArticlePush(Request $request){
+        dd($request->all());
     }
 }

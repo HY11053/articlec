@@ -177,7 +177,7 @@
                                 <a href="#" class="btn btn-default btn-flat">个人中心</a>
                             </div>
                             <div class="pull-right">
-                                <a href="/admin/logout" class="btn btn-default btn-flat">注销登录</a>
+                                <a href="/logout" class="btn btn-default btn-flat">注销登录</a>
                             </div>
                         </li>
                     </ul>

@@ -21,7 +21,9 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">文档列表管理 文档总计{{$articles->total()}}</h3>
                             {{Form::open(array('route' =>array( 'articlelisttype','id'=>$id),'files' => false,'class'=>'form-inline pull-right','method'=>'get'))}}
-                        <div class="form-group">
+
+                    <a href="{{action('ArticleController@FmImportContents')}}" style="color: #ffffff ; display: inline-block; padding-left: 3px;"><button  class="btn btn-default bg-blue"><i class="fa  fa-pencil-square" style="padding-right: 3px;"></i>表单提交导入</button></a>
+                     <div class="form-group">
                             <div class="input-group date " >
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar" style="width:10px;"></i>

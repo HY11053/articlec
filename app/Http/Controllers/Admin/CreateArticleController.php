@@ -126,6 +126,10 @@ class CreateArticleController extends Controller
         return view('admin.create_brandarticle',compact('articletypes','articlecategorys','titleTypes','websites'));
     }
 
+    /**品牌文档推送处理
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function PostCreateBrandArticle(Request $request){
         $this->ArticletitleCheck($request->brandname);
         $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
@@ -145,20 +149,7 @@ class CreateArticleController extends Controller
         }
         $website=$request->website;
         $websites=Websites::where('isused',1)->get(['id','webname']);
-        //自动获取当前品牌所属分类
-        $thisbrandid=$this->getWebsiteBrandid($website,$request->brandname);
-        if (!empty($thisbrandid)){
-            $thisbrandid= json_decode($thisbrandid,true);
-            $brandcid=json_decode($this->GetWebsiteTid($website),true);
-            $brandtypeid=json_decode($this->GetWebsiteSontypes($website,$thisbrandid["cid"]),true);
-            $brandid=json_decode($this->GetWebsiteBdname($website,$thisbrandid["typeid"]),true);
-        }else{
-            $thisbrandid='';
-            $brandcid=[];
-            $brandtypeid=[];
-            $brandid=[];
-        }
-        return view('admin.postcreate_brandarticle',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thisbrandid','brandcid','brandtypeid','brandid'));
+        return view('admin.postcreate_brandarticle',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website'));
     }
 
     /**违禁词检测

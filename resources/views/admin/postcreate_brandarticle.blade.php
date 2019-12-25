@@ -31,7 +31,7 @@
     <section class="content">
         <!-- row -->
         <div class="row">
-            {{Form::model($createinfo,array('route' =>array('brandarticlecreate'),'method' => 'post','files' => false,))}}
+            {{Form::model($createinfo,array('route' =>array('brandarticlecreate'),'method' => 'post','files' => false))}}
             <div class="col-md-12">
                 <!-- The time line -->
                 <ul class="timeline">
@@ -116,7 +116,7 @@
             </div>
             <!-- /.col -->
             {!! Form::close() !!}
-            {{Form::open(array('route' =>array('articlepush'),'method' => 'post','files' => false,'id'=>'formsubmit','onsubmit'=>"return false;"))}}
+            {{Form::open(array('route' =>array('articlepush'),'method' => 'post','files' => true,'id'=>'formsubmit','onsubmit'=>"return false;"))}}
             <div class="col-md-12">
                 <!-- The time line -->
                 <ul class="timeline">
@@ -598,21 +598,16 @@
         //文档推送
         $('#formsubmit').submit(function(e) {
             e.preventDefault();
+            var form=document.querySelector("#formsubmit");
+            //将获得的表单元素作为参数，对formData进行初始化
+            var formdata=new FormData(form);
             $.ajax(
                 {
                     type:"POST",
                     url:'/website/brandarticle/push',
-                    data:{
-                        "title":$("#title").val(),
-                        "brandtypeid":$("#brandtypeid").select2("val"),
-                        "description":$("#description").val(),
-                        "keywords":$("#keywords").val(),
-                        "published_at":$("#datepicker").val(),
-                        "webname":$("#webname").val(),
-                        "ismake": $('input[name="ismake"]:checked').val(),
-                        "xiongzhang": $('input[name="xiongzhang"]:checked').val(),
-                        "body":ue.getContent()
-                    },
+                    data:formdata,
+                    processData: false,   // jQuery不要去处理发送的数据
+                    contentType: false,   // jQuery不要去设置Content-Type请求头
                     datatype: "json",
                     success:function (response) {
                         $("#title").val('');
