@@ -135,7 +135,7 @@ class CreateArticleController extends Controller
         $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
         $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
         $articletypes=ArticleType::orderBy('sortrank','asc')->get(['id','content_type']);
-        $createinfo=collect(['brandname'=>$request->brandname,'typeid'=>$request->typeid,'title_typeid'=>$request->title_typeid,'content_type'=>$request->content_type]);
+        $createinfo=collect(['brand'=>$request->brand,'typeid'=>$request->typeid,'title_typeid'=>$request->title_typeid,'content_type'=>$request->content_type]);
         $brandinfos=BrandInfo::where('brandname','like',$request->brandname.'%')->inRandomOrder()->value('brandinfo');//strip_tags(
         $title=TitleSource::where('typeid',$request->title_typeid)->inRandomOrder()->value('title');
         $content_types=$request->content_type;

@@ -50,10 +50,10 @@
                             <h3 class="timeline-header"><a href="#">生成选项 |</a> create options</h3>
                             <div class="timeline-body">
                                 <div class="form-group col-md-12">
-                                    {{Form::label('brandname', '品牌名称', array('class' => 'control-label col-md-1'))}}
+                                    {{Form::label('brand', '品牌名称', array('class' => 'control-label col-md-1'))}}
                                     <div class="input-group col-md-4">
                                         <div class="input-group-addon"><i class="fa fa-user" style="width:10px;"></i></div>
-                                        {{Form::text('brandname',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'品牌名称','required'=>'required'))}}
+                                        {{Form::text('brand',null, array('class' => 'form-control  pull-right','id'=>'brand','placeholder'=>'品牌名称','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">

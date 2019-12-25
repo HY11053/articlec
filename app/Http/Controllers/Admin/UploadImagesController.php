@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Ramsey\Uuid\Uuid;
 
 class UploadImagesController extends Controller
 {
@@ -23,10 +24,12 @@ class UploadImagesController extends Controller
                     exit('图片类型错误，只能上传 png, jpg jpeg or gif等类型文件');
                 }
                 $extension = $file->getClientOriginalExtension();
-                $path = Storage::putFileAs($storePath, $file, md5(time()+rand(1500,2511).auth('web')->user()->email).'.'.$extension);
+                $uuid=Uuid::uuid1();
+                $path = Storage::putFileAs($storePath, $file,$uuid->getHex().'.'.$extension);
                 $data=Storage::readStream($path);
                 $client = new Client();
-                $res = $client->request('POST', 'http://www.u88.net/api/brandarticle/push',['verify' => false,'body' => $data])->getBody();
+                $res = $client->request('POST', 'http://www.u88.com/api/image/push',['verify' => false,'body' => $data])->getBody();
+                Storage::delete($path);
                 return json_encode(array('link'=>"$res"));
             }
         }

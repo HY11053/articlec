@@ -52,10 +52,10 @@
 
                             <div class="timeline-body">
                                 <div class="form-group col-md-12">
-                                    {{Form::label('brandname', '品牌名称', array('class' => 'control-label col-md-1'))}}
+                                    {{Form::label('brand', '品牌名称', array('class' => 'control-label col-md-1'))}}
                                     <div class="input-group col-md-4">
                                         <div class="input-group-addon"><i class="fa fa-user" style="width:10px;"></i></div>
-                                        {{Form::text('brandname',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'品牌名称','required'=>'required'))}}
+                                        {{Form::text('brand',null, array('class' => 'form-control  pull-right','id'=>'brand','placeholder'=>'品牌名称','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -168,16 +168,16 @@
                                 <div class="form-group col-md-12 ">
                                     {{Form::label('ismake', '文章状态', array('class' => 'control-label col-md-1'))}}
                                     <div class="radio col-md-4">
-                                        {{Form::radio('ismake', '1', true,array('class'=>'flat-red','checked'=>'checked'))}} 已审核
-                                        {{Form::radio('ismake', '0', false,array('class'=>'flat-red'))}}未审核
+                                        {{Form::radio('ismake', '1', true,array('class'=>'flat-red','checked'=>'checked','id'=>'ismake'))}} 已审核
+                                        {{Form::radio('ismake', '0', false,array('class'=>'flat-red','id'=>'ismake0'))}}未审核
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 has-warning">
                                     {{Form::label('xiongzhang', '熊掌号推送', array('class' => 'control-label col-md-1'))}}
                                     <div class="radio col-md-4">
-                                        {{Form::radio('xiongzhang', '1', true,array('class'=>'flat-red'))}} 天级
-                                        {{Form::radio('xiongzhang', '2', false,array('class'=>'flat-red'))}}周级
-                                        {{Form::radio('xiongzhang', '0', false,array('class'=>'flat-red'))}}否
+                                        {{Form::radio('xiongzhang', '1', true,array('class'=>'flat-red','id'=>'xiongzhang'))}} 天级
+                                        {{Form::radio('xiongzhang', '2', false,array('class'=>'flat-red','id'=>'xiongzhang2'))}}周级
+                                        {{Form::radio('xiongzhang', '0', false,array('class'=>'flat-red','id'=>'xiongzhang0'))}}否
                                         <span class="help-block" ><i class="fa fa-bell-o"></i> 天级收录内容享受天级抓取校验、快速展现优待。周级收录接口，每天可提交最多500万条有价值的内容，所提交内容会进入百度搜索统一处理流程，这个过程需要一段时间</span>
                                     </div>
                                 </div>
@@ -213,7 +213,7 @@
                             <span class="time"><i class="fa fa-clock-o"></i> {{date('D M j')}}</span>
                             <h3 class="timeline-header no-border"><a href="#">缩略图处理</a> 图片上传</h3>
                             <div class="timeline-body">
-                                {{Form::file('litpic', array('class' => 'file-loading','id'=>'input-2','accept'=>'image/*'))}}
+                                {{Form::file('input-image-2', array('class' => 'file-loading','id'=>'input-image-2','accept'=>'image/*'))}}
                             </div>
                         </div>
                     </li>
@@ -282,7 +282,7 @@
                                     <div class="form-group col-md-6">
                                         {{Form::label('brandperson', '加盟人群', array('class' => 'control-label col-md-2 col-sm-3 col-xs-12'))}}
                                         <div class="col-md-8 col-sm-9 col-xs-12">
-                                            {{Form::text('brandperson', null, array('class' => 'form-control col-md-10','id'=>'brandmap','placeholder'=>'加盟人群'))}}
+                                            {{Form::text('brandperson', null, array('class' => 'form-control col-md-10','id'=>'brandperson','placeholder'=>'加盟人群'))}}
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -441,7 +441,7 @@
 
                             <h3 class="timeline-header"><a href="#">图集处理</a> 批量上传图集</h3>
                             <div class="timeline-body">
-                                {{Form::file('image', array('name'=>'input-image','class' => 'file-loading','id'=>'input-image-1','multiple','accept'=>'image/*'))}}
+                                {{Form::file('input-image-1', array('class' => 'file-loading','id'=>'input-image-1','multiple','accept'=>'image/*'))}}
                                 <div id="kv-success-modal" class="modal fade">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -455,6 +455,7 @@
                                     </div>
                                 </div>
                                 {{Form::hidden('imagepics', null,array('id'=>'imagepics'))}}
+                                {{Form::hidden('litpic', null,array('id'=>'litpic'))}}
                             </div>
                         </div>
                     </li>
@@ -545,7 +546,7 @@
                 getCurrentCidinfo();
                 $("#brandcid").on("change",function(){getsonTypes("/website/getsontypes",{"topid":$("#brandcid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandtypeid")});
             });
-            $("#input-2").fileinput({
+            $("#input-image-2").fileinput({
                 theme: 'fa',
                 uploadUrl: "/fileuploads",
                 allowedFileExtensions: ["jpg", "png", "gif",'jpeg'],
@@ -558,13 +559,13 @@
                 resizeImage: true,
                 initialPreviewAsData: true,
                 uploadExtraData: {    //上传额外数据
-                    img_key: "litpic",
+                    img_key: "input-image-2",
                 }
-            }).on('fileuploaded', function(event, data, id, index) {
-                console.log(index)
+            }).on('fileuploaded', function(response) {
                 $('#kv-success-box').html('上传成功！');
                 $('#kv-success-modal').modal('show');
                 $('.kv-file-remove').hide();
+                $("#litpic").val(response.link);
             });
             $("#input-image-1").fileinput({
                 theme: 'fa',
