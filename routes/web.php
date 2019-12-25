@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function ()
     Route::get('/article/type/edit/{id}','ArticleTypeController@ArticletypeEdit');
     Route::put('/article/type/edit/{id}','ArticleTypeController@PostArticletypeEdit')->name('articletypeedit');
     //内容数据导入
-    Route::get('/article/articletype/list/{id}', 'ArticleController@ArticleTypeLists');
+    Route::get('/article/articletype/list/{id}', 'ArticleController@ArticleTypeLists')->name('articlelisttype');
     Route::get('/article/fmcontentimport', 'ArticleController@FmImportContents');
     Route::post('/article/fmcontentimport', 'ArticleController@PostFmImportContents')->name('fmimportcontents');
     Route::get('/article/edit/{id}', 'ArticleController@ArticleEdit');

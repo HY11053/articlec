@@ -6,6 +6,7 @@ use App\AdminModel\ArticleCategory;
 use App\AdminModel\ArticleType;
 use App\AdminModel\ContentSource;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,8 +16,29 @@ class ArticleController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function ArticleTypeLists(Request $request,$id){
-        $articles=ContentSource::where('content_type',$id)->orderBy('id','desc')->paginate(30);
-        return view('admin.articlelists',compact('articles'));
+        $id=$request->id;
+        $articles=ContentSource::when($request->end_at, function ($query) use ($request) {
+
+            return $query->where('created_at', '<',Carbon::parse($request->end_at));
+
+        })->when($request->start_at, function ($query) use ($request) {
+
+            return $query->where('created_at', '>',Carbon::parse($request->start_at));
+
+        })->when($request->typeid, function ($query) use ($request) {
+
+            return $query->where('typeid', $request->typeid);
+
+        })->when($request->content_type, function ($query) use ($request) {
+
+            return $query->where('content_type', $request->content_type);
+
+        }, function ($query) use ($id) {
+            return $query->where('content_type',$id);
+        })->orderBy('id','desc')->paginate(30);
+        $articleCategories=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
+        $articleTypes=ArticleType::orderBy('id','desc')->pluck('content_type','id');
+        return view('admin.articlelists',compact('articles','articleCategories','articleTypes','id'));
     }
 
     /**表单数据导入视图

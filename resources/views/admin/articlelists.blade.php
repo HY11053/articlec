@@ -20,7 +20,7 @@
 
                 <div class="box-header with-border">
                     <h3 class="box-title">文档列表管理 文档总计{{$articles->total()}}</h3>
-                            {{Form::open(array('route' => 'userdatainfo','files' => false,'class'=>'form-inline pull-right','method'=>'get'))}}
+                            {{Form::open(array('route' =>array( 'articlelisttype','id'=>$id),'files' => false,'class'=>'form-inline pull-right','method'=>'get'))}}
                         <div class="form-group">
                             <div class="input-group date " >
                                 <div class="input-group-addon">
@@ -40,7 +40,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-location-arrow" style="width:10px;"></i>
                                 </div>
-                                {{Form::select('typeid', ['标题模型','内容模型'], null,array('class'=>'form-control select2 pull-right','style'=>'width: 150px;','data-placeholder'=>"行业分类",'multiple'=>"multiple"))}}
+                                {{Form::select('typeid', $articleCategories, null,array('class'=>'form-control select2 pull-right','style'=>'width: 150px;','data-placeholder'=>"行业分类",'multiple'=>"multiple"))}}
                             </div>
                         </div>
                         <div class="form-group">
@@ -48,7 +48,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-location-arrow" style="width:10px;"></i>
                                 </div>
-                                {{Form::select('content_type', ['标题模型','内容模型'], null,array('class'=>'form-control select2 pull-right','style'=>'width: 150px;','data-placeholder'=>"内容分类",'multiple'=>"multiple"))}}
+                                {{Form::select('content_type', $articleTypes, null,array('class'=>'form-control select2 pull-right','style'=>'width: 150px;','data-placeholder'=>"内容分类",'multiple'=>"multiple"))}}
                             </div>
                         </div>
 
