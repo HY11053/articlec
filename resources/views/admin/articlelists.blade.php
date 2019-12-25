@@ -98,7 +98,7 @@
                             @endforeach
                         </table>
                     </div>
-                    {!! $articles->links() !!}
+                    {!! $articles->appends($arguments)->links() !!}
                 </div>
                 <!-- /.box-body -->
             </div>

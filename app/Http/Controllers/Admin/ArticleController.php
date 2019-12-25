@@ -17,6 +17,7 @@ class ArticleController extends Controller
      */
     public function ArticleTypeLists(Request $request,$id){
         $id=$request->id;
+        $arguments=$request->all();
         $articles=ContentSource::when($request->end_at, function ($query) use ($request) {
 
             return $query->where('created_at', '<',Carbon::parse($request->end_at));
@@ -38,7 +39,7 @@ class ArticleController extends Controller
         })->orderBy('id','desc')->paginate(30);
         $articleCategories=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
         $articleTypes=ArticleType::orderBy('id','desc')->pluck('content_type','id');
-        return view('admin.articlelists',compact('articles','articleCategories','articleTypes','id'));
+        return view('admin.articlelists',compact('articles','articleCategories','articleTypes','id','arguments'));
     }
 
     /**表单数据导入视图
