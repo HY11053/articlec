@@ -31,7 +31,7 @@ class CreateArticleRequest extends FormRequest
             'brandtypeid'=>'required',
             'brandid'=>'required',
             'body'=>'required',
-            'articletypeid'=>'required',
+            'typeid'=>'required',
             'ismake'=>'required|numeric',
             //'ismake'=>'required|numeric',
             //'mid'=>'numeric',

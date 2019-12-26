@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\AdminModel\Websites;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ class UploadImagesController extends Controller
 {
     public function UploadImage(Request $request){
         $imgkey=$request['img_key'];
+        $weburl=Websites::where('id',$request->siteid)->value('weburl');
         if(!empty($request[$imgkey])){
             if(!$request->hasFile($imgkey)){
                 exit('上传文件为空！');
@@ -28,7 +30,7 @@ class UploadImagesController extends Controller
                 $path = Storage::putFileAs($storePath, $file,$uuid->getHex().'.'.$extension);
                 $data=Storage::readStream($path);
                 $client = new Client();
-                $res = $client->request('POST', 'http://www.u88.com/api/image/push',['verify' => false,'body' => $data])->getBody();
+                $res = $client->request('POST', $weburl.'/api/image/push',['verify' => false,'body' => $data])->getBody()->getContents();
                 Storage::delete($path);
                 return json_encode(array('link'=>"$res"));
             }

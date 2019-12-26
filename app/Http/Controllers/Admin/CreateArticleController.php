@@ -34,18 +34,18 @@ class CreateArticleController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function PostCreateArticle (Request $request){
-        $this->ArticletitleCheck($request->brandname);
+        $this->ArticletitleCheck($request->brand);
         $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
         $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
         $articletypes=ArticleType::orderBy('sortrank','asc')->get(['id','content_type']);
-        $createinfo=collect(['brandname'=>$request->brandname,'typeid'=>$request->typeid,'title_typeid'=>$request->title_typeid,'content_type'=>$request->content_type]);
-        $brandinfos=BrandInfo::where('brandname','like',$request->brandname.'%')->inRandomOrder()->value('brandinfo');//strip_tags(
-        $collectcontent=strip_tags(ArticleCollection::where('brandname','like','%'.$request->brandname.'%')->orWhere('title','like','%'.$request->brandname.'%')->inRandomOrder()->value('body'));
+        $createinfo=collect(['brand'=>$request->brand,'categorytypeid'=>$request->categorytypeid,'title_typeid'=>$request->title_typeid,'content_type'=>$request->content_type]);
+        $brandinfos=BrandInfo::where('brandname','like',$request->brand.'%')->inRandomOrder()->value('brandinfo');//strip_tags(
+        $collectcontent=strip_tags(ArticleCollection::where('brandname','like','%'.$request->brand.'%')->orWhere('title','like','%'.$request->brand.'%')->inRandomOrder()->value('body'));
         $title=TitleSource::where('typeid',$request->title_typeid)->inRandomOrder()->value('title');
         $content_types=$request->content_type;
         $articlecontents=[];
         foreach ($content_types as $content_type){
-            $randomarticle=ContentSource::where('typeid',$request->typeid)->where('content_type',$content_type)->orderBy('used','asc')->inRandomOrder()->first(['id','content','used']);
+            $randomarticle=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->orderBy('used','asc')->inRandomOrder()->first(['id','content','used']);
             $articlecontents[ArticleType::where('id',$content_type)->value('content_type')]=$randomarticle;
             if(!empty($randomarticle)){
                 ContentSource::where('id',$randomarticle->id)->update(['used'=>$randomarticle->used+1]);
@@ -54,7 +54,7 @@ class CreateArticleController extends Controller
         $website=$request->website;
         $websites=Websites::where('isused',1)->get(['id','webname']);
         //自动获取当前品牌所属分类
-        $thisbrandid=$this->getWebsiteBrandid($website,$request->brandname);
+        $thisbrandid=$this->getWebsiteBrandid($website,$request->brand);
         if (!empty(json_decode($thisbrandid,true))){
             $thisbrandid= json_decode($thisbrandid,true);
             $brandcid=json_decode($this->GetWebsiteTid($website),true);
@@ -66,7 +66,6 @@ class CreateArticleController extends Controller
             $brandtypeid=[];
             $brandid=[];
         }
-
         return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thisbrandid','brandcid','brandtypeid','brandid','collectcontent'));
     }
 
@@ -78,7 +77,7 @@ class CreateArticleController extends Controller
     private function getWebsiteBrandid($websites,$brandname){
         $client = new Client();
         $weburl=trim(Websites::where('id',$websites)->value('weburl'),'/');
-        $brandidResponse = $client->get($weburl.'/api/getbrandidapi/?brandname='.$brandname,['verify' => false])->getBody();
+        $brandidResponse = $client->get($weburl.'/api/getbrandidapi/?brandname='.$brandname,['verify' => false])->getBody()->getContents();
         return $brandidResponse;
     }
     /**获取对应绑定站点顶级品牌分类
@@ -89,7 +88,7 @@ class CreateArticleController extends Controller
     {
         $client = new Client();
         $weburl=trim(Websites::where('id',$website)->value('weburl'),'/');
-        $brandarticlesResponse = $client->get($weburl.'/api/brandtidapi/',['verify' => false])->getBody();
+        $brandarticlesResponse = $client->get($weburl.'/api/brandtidapi/',['verify' => false])->getBody()->getContents();
         return $brandarticlesResponse;
     }
 
@@ -100,7 +99,7 @@ class CreateArticleController extends Controller
     private function GetWebsiteSontypes($website,$cid){
         $client = new Client();
         $weburl=trim(Websites::where('id',$website)->value('weburl'),'/');
-        $brandarticlesResponse = $client->get($weburl.'/api/brandcidapi/?topid='.$cid,['verify' => false])->getBody();
+        $brandarticlesResponse = $client->get($weburl.'/api/brandcidapi/?topid='.$cid,['verify' => false])->getBody()->getContents();
         return $brandarticlesResponse;
     }
 
@@ -111,7 +110,7 @@ class CreateArticleController extends Controller
     private function GetWebsiteBdname($website,$typeid){
         $client = new Client();
         $weburl=trim(Websites::where('id',$website)->value('weburl'),'/');
-        $brandarticlesResponse = $client->get($weburl.'/api/getbdnameapi/?brandtypeid='.$typeid,['verify' => false])->getBody();
+        $brandarticlesResponse = $client->get($weburl.'/api/getbdnameapi/?brandtypeid='.$typeid,['verify' => false])->getBody()->getContents();
         return $brandarticlesResponse;
     }
 
@@ -131,25 +130,26 @@ class CreateArticleController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function PostCreateBrandArticle(Request $request){
-        $this->ArticletitleCheck($request->brandname);
+        $this->ArticletitleCheck($request->brand);
         $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
         $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
         $articletypes=ArticleType::orderBy('sortrank','asc')->get(['id','content_type']);
-        $createinfo=collect(['brand'=>$request->brand,'typeid'=>$request->typeid,'title_typeid'=>$request->title_typeid,'content_type'=>$request->content_type]);
-        $brandinfos=BrandInfo::where('brandname','like',$request->brandname.'%')->inRandomOrder()->value('brandinfo');//strip_tags(
+        $createinfo=collect(['brand'=>$request->brand,'categorytypeid'=>$request->categorytypeid,'title_typeid'=>$request->title_typeid,'content_type'=>$request->content_type]);
+        $brandinfos=BrandInfo::where('brandname','like',$request->brand.'%')->inRandomOrder()->value('brandinfo');//strip_tags(
         $title=TitleSource::where('typeid',$request->title_typeid)->inRandomOrder()->value('title');
         $content_types=$request->content_type;
         $articlecontents=[];
         foreach ($content_types as $content_type){
-            $randomarticle=ContentSource::where('typeid',$request->typeid)->where('content_type',$content_type)->orderBy('used','asc')->inRandomOrder()->first(['id','content','used']);
+            $randomarticle=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->orderBy('used','asc')->inRandomOrder()->first(['id','content','used']);
             $articlecontents[ArticleType::where('id',$content_type)->value('content_type')]=$randomarticle;
             if(!empty($randomarticle)){
                 ContentSource::where('id',$randomarticle->id)->update(['used'=>$randomarticle->used+1]);
             }
         }
         $website=$request->website;
-        $websites=Websites::where('isused',1)->get(['id','webname']);
-        return view('admin.postcreate_brandarticle',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website'));
+        $thiwebinfo=Websites::where('id',$request->website)->first();
+        $websites=Websites::where('isused',1)->get(['id','webname','weburl']);
+        return view('admin.postcreate_brandarticle',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thiwebinfo'));
     }
 
     /**违禁词检测

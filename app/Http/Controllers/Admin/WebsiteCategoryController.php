@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\AdminModel\Websites;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateArticleRequest;
+use App\Http\Requests\CreateBrandArticleRequest;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -64,7 +65,7 @@ class WebsiteCategoryController extends Controller
     {
         $client = new Client();
         $weburl=trim(Websites::where('id',$request->website)->value('weburl'),'/');
-        $brandarticlesResponse = $client->get($weburl.'/api/brandtidapi/',['verify' => false])->getBody();
+        $brandarticlesResponse = $client->get($weburl.'/api/brandtidapi/',['verify' => false])->getBody()->getContents();
         return json_decode($brandarticlesResponse,true);
     }
 
@@ -75,7 +76,7 @@ class WebsiteCategoryController extends Controller
     public function GetWebsiteSontypes(Request $request){
         $client = new Client();
         $weburl=trim(Websites::where('id',$request->website)->value('weburl'),'/');
-        $brandarticlesResponse = $client->get($weburl.'/api/brandcidapi/?topid='.$request->topid,['verify' => false])->getBody();
+        $brandarticlesResponse = $client->get($weburl.'/api/brandcidapi/?topid='.$request->topid,['verify' => false])->getBody()->getContents();
         return json_decode($brandarticlesResponse,true);
     }
 
@@ -86,7 +87,7 @@ class WebsiteCategoryController extends Controller
     public function GetWebsiteBdname(Request $request){
         $client = new Client();
         $weburl=trim(Websites::where('id',$request->website)->value('weburl'),'/');
-        $brandarticlesResponse = $client->get($weburl.'/api/getbdnameapi/?brandtypeid='.$request->brandtypeid,['verify' => false])->getBody();
+        $brandarticlesResponse = $client->get($weburl.'/api/getbdnameapi/?brandtypeid='.$request->brandtypeid,['verify' => false])->getBody()->getContents();
         return json_decode($brandarticlesResponse,true);
     }
 
@@ -97,16 +98,60 @@ class WebsiteCategoryController extends Controller
     public function GetWebsitenavs(Request $request){
         $client = new Client();
         $weburl=trim(Websites::where('id',$request->website)->value('weburl'),'/');
-        $brandarticlesResponse = $client->get($weburl.'/api/getarticletypeapi',['verify' => false])->getBody();
+        $brandarticlesResponse = $client->get($weburl.'/api/getarticletypeapi',['verify' => false])->getBody()->getContents();
         return json_decode($brandarticlesResponse,true);
     }
 
     public function GetBrandPics(Request $request){
         $client = new Client();
         $weburl=trim(Websites::where('id',$request->website)->value('weburl'),'/');
-        $brandarticlesResponse = $client->get($weburl.'/api/getbrandpicsapi?brandid='.$request->brandid,['verify' => false])->getBody();
+        $brandarticlesResponse = $client->get($weburl.'/api/getbrandpicsapi?brandid='.$request->brandid,['verify' => false])->getBody()->getContents();
         return json_decode($brandarticlesResponse,true);
 
+    }
+
+    /**获取对应站点品牌省份信息
+     * @param Request $request
+     * @return mixed
+     */
+    public function GetProvinces(Request $request){
+        $client = new Client();
+        $weburl=trim(Websites::where('id',$request->website)->value('weburl'),'/');
+        $brandprovincesResponse = $client->get($weburl.'/api/getbrandprovince',['verify' => false])->getBody()->getContents();
+        return json_decode($brandprovincesResponse,true);
+    }
+
+    /**获取对应省份城市分类
+     * @param Request $request
+     * @return mixed
+     */
+    public function GetCitys(Request $request){
+        $client = new Client();
+        $weburl=trim(Websites::where('id',$request->website)->value('weburl'),'/');
+        $brandcitysResponse = $client->get($weburl.'/api/getbrandcitys?province_id='.$request->province_id,['verify' => false])->getBody()->getContents();
+        return json_decode($brandcitysResponse,true);
+    }
+
+    /**获取投资分类
+     * @param Request $request
+     * @return mixed
+     */
+    public function getInvestments(Request $request){
+        $client = new Client();
+        $weburl=trim(Websites::where('id',$request->website)->value('weburl'),'/');
+        $brandinvestmentsResponse = $client->get($weburl.'/api/getinvestments',['verify' => false])->getBody()->getContents();
+        return json_decode($brandinvestmentsResponse,true);
+    }
+
+    /**获取店铺面积分类
+     * @param Request $request
+     * @return mixed
+     */
+    public function getAcreagements(Request $request){
+        $client = new Client();
+        $weburl=trim(Websites::where('id',$request->website)->value('weburl'),'/');
+        $brandAcreagementsResponse = $client->get($weburl.'/api/getacreagements',['verify' => false])->getBody()->getContents();
+        return json_decode($brandAcreagementsResponse,true);
     }
 
     /**数据发送到对应站点
@@ -114,29 +159,25 @@ class WebsiteCategoryController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function PostArticlePush(CreateArticleRequest $request){
+        $request['write']=Auth::user()->name;
         $client = new Client();
         $weburl=trim(Websites::where('id',$request->webname)->value('weburl'),'/');
         $response = $client->request('POST', $weburl.'/api/article/push', [
             'verify' => false,
-            'form_params' => [
-                'title' => $request->title,
-                'keywords' => $request->keywords,
-                'brandcid' =>$request->brandcid,
-                'brandtypeid' =>$request->brandtypeid,
-                'brandid' =>$request->brandid,
-                'typeid' =>$request->articletypeid,
-                'description' =>$request->description,
-                'published_at' =>$request->published_at,
-                'body' =>$request->body,
-                'ismake' =>$request->ismake,
-                'xiongzhang'=>$request->xiongzhang,
-                'write'=>Auth::user()->name,
-            ]
+            'form_params' =>$request->all()
         ]);
-        return $response->getBody();
+        return $response->getBody()->getContents();
     }
 
-    public function PostBrandArticlePush(Request $request){
-        dd($request->all());
+    public function PostBrandArticlePush(CreateBrandArticleRequest $request){
+        $request['imagepics']=trim($request->imagepics,',');
+        $request['write']=Auth::user()->name;
+        $client = new Client();
+        $weburl=trim(Websites::where('id',$request->webname)->value('weburl'),'/');
+        $response = $client->request('POST', $weburl.'/api/brandarticle/push', [
+            'verify' => false,
+            'form_params' =>$request->all()
+        ]);
+        return $response->getBody()->getContents();
     }
 }

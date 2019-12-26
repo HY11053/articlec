@@ -51,19 +51,19 @@
 
                             <div class="timeline-body">
                                 <div class="form-group col-md-12">
-                                    {{Form::label('brandname', '品牌名称', array('class' => 'control-label col-md-1'))}}
+                                    {{Form::label('brand', '品牌名称', array('class' => 'control-label col-md-1'))}}
                                     <div class="input-group col-md-4">
                                         <div class="input-group-addon"><i class="fa fa-user" style="width:10px;"></i></div>
-                                        {{Form::text('brandname',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'品牌名称','required'=>'required'))}}
+                                        {{Form::text('brand',null, array('class' => 'form-control  pull-right','id'=>'brand','placeholder'=>'品牌名称','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
-                                    {{Form::label('typeid', '行业分类', array('class' => 'control-label col-md-1'))}}
+                                    {{Form::label('categorytypeid', '行业分类', array('class' => 'control-label col-md-1'))}}
                                     <div class="input-group col-md-4">
                                         <div class="input-group-addon">
                                             <i class="fa fa-cubes" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('typeid', $articlecategorys, null,array('class'=>'form-control pull-right select2 ','style'=>'width: 100%','required'=>'required'))}}
+                                        {{Form::select('categorytypeid', $articlecategorys, null,array('class'=>'form-control pull-right select2 ','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -174,12 +174,12 @@
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    {{Form::label('articletypeid', '文档所属分类', array('class' => 'col-md-1 control-label'))}}
+                                    {{Form::label('typeid', '文档所属分类', array('class' => 'col-md-1 control-label'))}}
                                     <div class="input-group col-md-4">
                                         <div class="input-group-addon">
                                             <i class="fa fa-language" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('articletypeid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'articletypeid','style'=>'width: 100%','required'=>'required'))}}
+                                        {{Form::select('typeid', [], null,array('class'=>'form-control  pull-right select2' ,'id'=>'typeid','style'=>'width: 100%','required'=>'required'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 ">
@@ -357,11 +357,6 @@
                     $("#brandid").on("change",function(){getBrandpics('/website/getbrandpic',{"brandid":$("#brandid").select2("val"),"website":$("input[type='radio']:checked").val()},"#brandpics")});
                 });
              @endif
-            /**
-             *
-
-
-             */
         })
         //获取默认站点下品牌顶级分类信息
         function getCurrentCidinfo() {
@@ -422,7 +417,7 @@
                             console.log()
                             contents += '<option value="' + response[type]['id'] + '">' + response[type]['typename'] + '</option>';
                         }
-                        $('#articletypeid').html(contents);
+                        $('#typeid').html(contents);
                     }
                 });
         }
@@ -449,7 +444,7 @@
                     type:"POST",
                     url:'/articlecollect/regenerate',
                     data:{
-                        "brandname":$("#brandname").val()
+                        "brand":$("#brand").val()
                     },
                     datatype: "json",
                     success:function (response) {
@@ -460,37 +455,28 @@
         //文档推送
         $('#formsubmit').submit(function(e) {
             e.preventDefault();
+            var form=document.querySelector("#formsubmit");
+            //将获得的表单元素作为参数，对formData进行初始化
+            var formdata=new FormData(form);
             $.ajax(
                 {
                     type:"POST",
                     url:'/website/article/push',
-                    data:{
-                        "title":$("#title").val(),
-                        "brandcid":$("#brandcid").select2("val"),
-                        "brandtypeid":$("#brandtypeid").select2("val"),
-                        "brandid":$("#brandid").select2("val"),
-                        "articletypeid":$("#articletypeid").select2("val"),
-                        "description":$("#description").val(),
-                        "keywords":$("#keywords").val(),
-                        "published_at":$("#datepicker").val(),
-                        "webname":$("#webname").val(),
-                        "ismake": $('input[name="ismake"]:checked').val(),
-                        "xiongzhang": $('input[name="xiongzhang"]:checked').val(),
-                        "body":ue.getContent()
-                    },
+                    data:formdata,
+                    processData: false,   // jQuery不要去处理发送的数据
+                    contentType: false,   // jQuery不要去设置Content-Type请求头
                     datatype: "json",
                     success:function (response) {
+                        $("#modal-body").html(response)
+                        $('#myModal').modal()
                         $("#title").val('');
                         $("#keywords").val('');
                         ue.setContent('')
-                        $("#modal-body").html(response)
-                        $('#myModal').modal()
                         return false;
                     }
                 });
             return false
         });
-
     </script>
 @stop
 

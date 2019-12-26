@@ -93,6 +93,10 @@ Route::middleware(['auth'])->group(function ()
     Route::post('/website/getbrandpic', 'WebsiteCategoryController@GetBrandPics');
     Route::post('/website/article/push', 'WebsiteCategoryController@PostArticlePush')->name('articlepush');
     Route::post('/website/brandarticle/push', 'WebsiteCategoryController@PostBrandArticlePush')->name('brandarticlepush');
+    Route::post('/website/getprovince', 'WebsiteCategoryController@GetProvinces');
+    Route::post('/website/getcitys', 'WebsiteCategoryController@GetCitys');
+    Route::post('/website/getinvestments', 'WebsiteCategoryController@getInvestments');
+    Route::post('/website/getacreagements', 'WebsiteCategoryController@getAcreagements');
     //加盟费用管理
     Route::get('/payment/categorylists', 'PaymentCategoryController@PaymentCategoryList');
     Route::get('/payment/categoryadd', 'PaymentCategoryController@PaymentAdd');

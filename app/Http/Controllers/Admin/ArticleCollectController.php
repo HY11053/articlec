@@ -13,6 +13,6 @@ class ArticleCollectController extends Controller
      * @return string
      */
     public function PostRegenerate(Request $request){
-       return strip_tags(ArticleCollection::where('brandname','like','%'.$request->brandname.'%')->orWhere('title','like','%'.$request->brandname.'%')->inRandomOrder()->value('body'));
+       return strip_tags(ArticleCollection::where('brandname','like','%'.$request->brand.'%')->orWhere('title','like','%'.$request->brand.'%')->inRandomOrder()->value('body'));
     }
 }
