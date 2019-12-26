@@ -78,6 +78,7 @@
                                 <th>内容分类</th>
                                 <th>使用次数</th>
                                 <th>导入用户</th>
+                                <th>最后使用时间</th>
                                 <th>导入时间</th>
                                 <th>内容预览</th>
                                 <th>操作</th>
@@ -91,6 +92,7 @@
                                     <td>{{$article->used}}</td>
                                     <td>{{$article->write}}</td>
                                     <td>@if(\Carbon\Carbon::now() > \Carbon\Carbon::parse($article->created_at)->addDays(7)){{$article->created_at}} @else{{\Carbon\Carbon::parse($article->created_at)->diffForHumans()}}@endif </td>
+                                    <td>@if(\Carbon\Carbon::now() > \Carbon\Carbon::parse($article->created_at)->addDays(7)){{$article->updated_at}} @else{{\Carbon\Carbon::parse($article->updated_at)->diffForHumans()}}@endif </td>
                                     <td title="{{$article->content}}">{{mb_substr($article->content,0,50,'utf-8')}}...</td>
                                     <td class="astyle">
                                         <span class="label label-warning"><a href="/article/edit/{{$article->id}}">编辑</a></span>
