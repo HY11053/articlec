@@ -289,7 +289,9 @@
                                 @endif
                             </div>
                             <div class="timeline-footer" style="clear: both;">
-                                <button id="submit_content" class="btn btn-success btn-sm" >推送至指定站点</button>
+                                @if(\Illuminate\Support\Facades\Auth::user()->type)
+                                    <button id="submit_content" class="btn btn-success btn-sm" >推送至指定站点</button>
+                                @endif
                             </div>
                         </div>
 

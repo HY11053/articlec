@@ -3,9 +3,6 @@
 @section('head')
     <link href="/adminlte/plugins/iCheck/all.css" rel="stylesheet">
     <link href="/adminlte/plugins/iCheck/flat/green.css" rel="stylesheet">
-@section('head')
-    <style>td.newcolor span a{color: #ffffff; font-weight: 400; display: inline-block; padding: 2px;} td.newcolor span{margin-left: 5px;}</style>
-@stop
 @stop
 @section('header_position')
     <section class="content-header">
@@ -25,6 +22,15 @@
             <div class="form-group has-feedback">
                 {{Form::text('email', null,array('class'=>'form-control','id'=>'email','readonly'=>'readonly','placeholder'=>'登陆邮箱'))}}
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback ">
+                @if($thisUser->type)
+                {{Form::radio('type', '1', true,array('class'=>'flat-red','checked'=>'checked','id'=>'type1'))}} 推送权限
+                {{Form::radio('type', '0', false,array('class'=>'flat-red','id'=>'type0'))}}否
+                @else
+                    {{Form::radio('type', '1', true,array('class'=>'flat-red','id'=>'type1'))}} 推送权限
+                    {{Form::radio('type', '0', false,array('class'=>'flat-red','checked'=>'checked','id'=>'type0'))}}否
+                @endif
             </div>
             <div class="form-group has-feedback">
                 {{Form::password('password', array('class'=>'form-control','id'=>'password','placeholder'=>'密码'))}}
@@ -58,7 +64,10 @@
     <!-- /.content -->
 @stop
 @section('libs')
-
+    <script src="/adminlte/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({ checkboxClass: 'icheckbox_flat-green', radioClass: 'iradio_flat-green'});
+    </script>
 @stop
 
 
