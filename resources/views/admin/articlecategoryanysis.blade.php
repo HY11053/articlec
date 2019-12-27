@@ -31,7 +31,7 @@
                         @foreach($articlecategories as $articlecategorie)
                             <tr>
                                 <td>{{$articlecategorie->id}}.</td>
-                                <td>{{$articlecategorie->typename}}.</td>
+                                <td>{{$articlecategorie->typename}}</td>
                                 @foreach($articletypes as $articletype)
                                     <td>{{\App\AdminModel\ContentSource::where('typeid',$articlecategorie->id)->where('content_type',$articletype->id)->count()}}</td>
                                 @endforeach
