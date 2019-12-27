@@ -346,7 +346,9 @@
             $('.select2').select2({language: "zh-CN"});
             $("#webname").val($("input[type='radio']:checked").val())
             getCurrentCidinfo();
+            @if($thiwebinfo->webname=='u88'||$thiwebinfo->webname=='anxjm')
             getsonProvinces();
+            @endif
             getInvestments();
             getAcreagements()
             $("#brandcid").on("change",function(){getsonTypes("/website/getsontypes",{"topid":$("#brandcid").select2("val"),"website":$("input[type='radio']:checked").val()},"#typeid")});
