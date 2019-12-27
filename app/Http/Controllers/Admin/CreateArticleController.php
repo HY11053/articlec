@@ -45,7 +45,8 @@ class CreateArticleController extends Controller
         $content_types=$request->content_type;
         $articlecontents=[];
         foreach ($content_types as $content_type){
-            $randomarticle=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->orderBy('used','asc')->inRandomOrder()->first(['id','content','used']);
+            $minusedid=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->min('used');
+            $randomarticle=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->where('used',$minusedid)->orderBy('used','asc')->inRandomOrder()->first(['id','content','used']);
             $articlecontents[ArticleType::where('id',$content_type)->value('content_type')]=$randomarticle;
             if(!empty($randomarticle)){
                 ContentSource::where('id',$randomarticle->id)->update(['used'=>$randomarticle->used+1]);
@@ -140,7 +141,8 @@ class CreateArticleController extends Controller
         $content_types=$request->content_type;
         $articlecontents=[];
         foreach ($content_types as $content_type){
-            $randomarticle=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->orderBy('used','asc')->inRandomOrder()->first(['id','content','used']);
+            $minusedid=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->min('used');
+            $randomarticle=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->where('used',$minusedid)->orderBy('used','asc')->inRandomOrder()->first(['id','content','used']);
             $articlecontents[ArticleType::where('id',$content_type)->value('content_type')]=$randomarticle;
             if(!empty($randomarticle)){
                 ContentSource::where('id',$randomarticle->id)->update(['used'=>$randomarticle->used+1]);
