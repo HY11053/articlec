@@ -36,6 +36,7 @@
                 <ul class="treeview-menu">
                     <li @if(Request::getRequestUri()=='/article/categories')class="active" @endif><a href="/article/categories"><i class="fa fa-circle-o"></i>行业分类列表</a></li>
                     <li @if(Request::getRequestUri()=='/article/category/add')class="active" @endif><a href="/article/category/add"><i class="fa fa-circle-o"></i>行业分类添加</a></li>
+                    <li @if(Request::getRequestUri()=='/article/category/anysis')class="active" @endif><a href="/article/category/anysis"><i class="fa fa-circle-o"></i>行业分类汇总</a></li>
                     <li @if(Request::getRequestUri()=='/article/types')class="active" @endif><a href="/article/types"><i class="fa fa-circle-o"></i>内容分类列表</a></li>
                     <li @if(Request::getRequestUri()=='/article/type/add')class="active" @endif><a href="/article/type/add"><i class="fa fa-circle-o"></i>内容分类添加</a></li>
                 </ul>

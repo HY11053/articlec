@@ -20,6 +20,7 @@ Route::middleware(['auth'])->group(function ()
     Route::get('/','IndexController@Index');
     Route::get('logout', 'Auth\LoginController@logout');
     Route::get('/article/categories','ArticleCategoryController@ArticleCategoryLists')->name('articlecategorylists');
+    Route::get('/article/category/anysis','ArticleCategoryController@ArticleCategoryAnysis');
     Route::get('/article/category/add','ArticleCategoryController@ArticleCategoryAdd');
     Route::post('/article/category/add','ArticleCategoryController@PostArticleCategoryAdd')->name('articlecategoryadd');
     Route::get('/article/category/edit/{id}','ArticleCategoryController@ArticleCategoryEdit');

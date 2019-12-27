@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\AdminModel\ArticleCategory;
+use App\AdminModel\ArticleType;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,11 @@ class ArticleCategoryController extends Controller
     public function ArticleCategoryLists(){
         $articlecategories=ArticleCategory::orderBy('id','desc')->paginate(30);
         return view('admin.articlecategorylists',compact('articlecategories'));
+    }
+    public function ArticleCategoryAnysis(){
+        $articlecategories=ArticleCategory::orderBy('id','desc')->paginate(30);
+        $articletypes=ArticleType::all();
+        return view('admin.articlecategoryanysis',compact('articlecategories','articletypes'));
     }
 
     /**行业分类添加视图
