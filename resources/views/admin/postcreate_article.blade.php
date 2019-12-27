@@ -103,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="timeline-footer" style="clear: both;">
-                                <button class="btn btn-primary btn-sm">重新生成</button>
+                                <button class="btn btn-primary btn-sm">重新生成内容</button>
                             </div>
                         </div>
 
@@ -218,11 +218,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="timeline-footer">
+                            <div class="timeline-footer" style="clear: both">
 
-                            </div>
-                            <div class="timeline-footer" style="clear: both;">
-                                <button id="submit_content" class="btn btn-success btn-sm" >推送至指定站点</button>
                             </div>
                         </div>
                     </li>
@@ -238,7 +235,7 @@
                                    {!! $collectcontent !!}
                             </div>
                             <div class="timeline-footer">
-                                <a class="btn btn-primary btn-sm" id="regencollect">重新生成</a>
+                                <a class="btn btn-primary btn-sm" id="regencollect">重新生成当前品牌相关资讯</a>
                             </div>
                         </div>
                     </li>
@@ -263,6 +260,9 @@
                                 <script id="container" name="body" type="text/plain" >
                                     @include('admin.layouts.content')
                                 </script>
+                            </div>
+                            <div class="timeline-footer" style="clear: both;">
+                                <button id="submit_content" class="btn btn-success btn-sm" >推送至指定站点</button>
                             </div>
                             <div id="errors">
                                 @if(count($errors) > 0)
