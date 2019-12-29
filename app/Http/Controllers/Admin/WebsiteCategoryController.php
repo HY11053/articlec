@@ -9,6 +9,8 @@ use App\Http\Requests\CreateBrandArticleRequest;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Log;
 
 class WebsiteCategoryController extends Controller
 {
@@ -102,6 +104,10 @@ class WebsiteCategoryController extends Controller
         return json_decode($brandarticlesResponse,true);
     }
 
+    /**获取当前品牌图集
+     * @param Request $request
+     * @return mixed
+     */
     public function GetBrandPics(Request $request){
         $client = new Client();
         $weburl=trim(Websites::where('id',$request->website)->value('weburl'),'/');
@@ -159,9 +165,10 @@ class WebsiteCategoryController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function PostArticlePush(CreateArticleRequest $request){
+        $weburl=trim(Websites::where('id',$request->webname)->value('weburl'),'/');
+        $request['body']=$this->processContent($request['body'],$weburl);
         $request['write']=Auth::user()->name;
         $client = new Client();
-        $weburl=trim(Websites::where('id',$request->webname)->value('weburl'),'/');
         $response = $client->request('POST', $weburl.'/api/article/push', [
             'verify' => false,
             'form_params' =>$request->all()
@@ -169,9 +176,15 @@ class WebsiteCategoryController extends Controller
         return $response->getBody()->getContents();
     }
 
+    /**品牌文档推送
+     * @param CreateBrandArticleRequest $request
+     * @return string
+     */
     public function PostBrandArticlePush(CreateBrandArticleRequest $request){
         $request['imagepics']=trim($request->imagepics,',');
         $request['write']=Auth::user()->name;
+        $weburl=trim(Websites::where('id',$request->webname)->value('weburl'),'/');
+        $request['body']=$this->processContent($request['body'],$weburl);
         $client = new Client();
         $weburl=trim(Websites::where('id',$request->webname)->value('weburl'),'/');
         $response = $client->request('POST', $weburl.'/api/brandarticle/push', [
@@ -179,5 +192,26 @@ class WebsiteCategoryController extends Controller
             'form_params' =>$request->all()
         ]);
         return $response->getBody()->getContents();
+    }
+
+    /**处理内容中本地图片上传到指定站点
+     * @param $content
+     * @return mixed
+     */
+    public function processContent($content,$weburl) {
+        preg_match_all("/src=[\"|'|\s]([^\"|^\'|^\s]*?)/isU",$content,$img_array);
+        $img_arrays = array_unique($img_array[1]);
+        foreach ($img_arrays as $image){
+            if (str_contains($image,config('app.url'))){
+                $imgpath=str_replace('storage','public',trim($image,config('app.url')));
+                $data=Storage::readStream($imgpath);
+                $client = new Client();
+                $resimagepath = $client->request('POST', $weburl.'/api/image/push',['verify' => false,'body' => $data])->getBody()->getContents();
+                $filename=$weburl.$resimagepath;
+                $content=str_replace($image,$filename,$content);
+                Storage::delete($imgpath);
+            }
+        }
+        return $content;
     }
 }

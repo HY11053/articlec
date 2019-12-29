@@ -120,4 +120,7 @@ Route::middleware(['auth'])->group(function ()
 
     //智能创作平台
     Route::post('/baidunpl/getecnet', 'BaiduNlpController@Ecnet');
+    //others
+    Route::get('/brandmain/lists', 'BrandInfoController@brandMainLists');
+
 });

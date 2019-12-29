@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://u88article.net'),
+    'url' => env('APP_URL', 'http://www.createarticle.com'),
 
     'asset_url' => env('ASSET_URL', null),
 

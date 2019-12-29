@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\AdminModel\BrandData;
 use App\AdminModel\BrandInfo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,6 +16,11 @@ class BrandInfoController extends Controller
     public function BrandInfoLists(){
         $brandinfolists=BrandInfo::orderBy('id','desc')->paginate(30);
         return view('admin.brandinfolists',compact('brandinfolists'));
+    }
+
+    public function brandMainLists(){
+        $brandinfolists=BrandData::orderBy('num','desc')->paginate(30);
+        return view('admin.brandmainlists',compact('brandinfolists'));
     }
 
     /**品牌简介添加
