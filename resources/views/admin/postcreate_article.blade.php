@@ -268,7 +268,7 @@
                     <li>
                         <i class="fa fa-file-text bg-maroon"></i>
                         <div class="timeline-item">
-                            <span class="time"><i class="fa fa-bell-o"></i> 生成结果预览 无问题后推送到指定站点</span>
+                            <span class="time"><i class="fa fa-bell-o"></i> 生成结果预览 无问题后推送到指定站点 当前品牌投资金额: <strong style="color: red">{{$brandpay}}</strong></span>
                             <h3 class="timeline-header"><a href="#">文档生成处理</a></h3>
                             <div class="timeline-body">
                                 @include('admin.layouts.ueditor')

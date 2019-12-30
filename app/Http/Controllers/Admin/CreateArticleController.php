@@ -62,13 +62,15 @@ class CreateArticleController extends Controller
             $brandcid=json_decode($this->GetWebsiteTid($website),true);
             $brandtypeid=json_decode($this->GetWebsiteSontypes($website,$thisbrandid["cid"]),true);
             $brandid=json_decode($this->GetWebsiteBdname($website,$thisbrandid["typeid"]),true);
+            $brandpay=$this->GetWebsiteBrandpay($website,$thisbrandid['id']);
         }else{
             $thisbrandid='';
             $brandcid=[];
             $brandtypeid=[];
             $brandid=[];
+            $brandpay='';
         }
-        return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thisbrandid','brandcid','brandtypeid','brandid','collectcontent','thiwebinfo'));
+        return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thisbrandid','brandcid','brandtypeid','brandid','collectcontent','thiwebinfo','brandpay'));
     }
 
     /**获取当前品牌id
@@ -114,6 +116,17 @@ class CreateArticleController extends Controller
         $weburl=trim(Websites::where('id',$website)->value('weburl'),'/');
         $brandarticlesResponse = $client->get($weburl.'/api/getbdnameapi/?brandtypeid='.$typeid,['verify' => false])->getBody()->getContents();
         return $brandarticlesResponse;
+    }
+
+    /**获取对应品牌投资金额
+     * @param Request $request
+     * @return mixed
+     */
+    private function GetWebsiteBrandpay($website,$brandid){
+        $client = new Client();
+        $weburl=trim(Websites::where('id',$website)->value('weburl'),'/');
+        $brandpayResponse = $client->get($weburl.'/api/getbdpayapi/?id='.$brandid,['verify' => false])->getBody()->getContents();
+        return $brandpayResponse;
     }
 
     /**品牌文档生成创建
