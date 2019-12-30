@@ -54,6 +54,7 @@ class CreateArticleController extends Controller
         }
         $website=$request->website;
         $websites=Websites::where('isused',1)->get(['id','webname']);
+        $thiwebinfo=Websites::where('id',$request->website)->first();
         //自动获取当前品牌所属分类
         $thisbrandid=$this->getWebsiteBrandid($website,$request->brand);
         if (!empty(json_decode($thisbrandid,true))){
@@ -67,7 +68,7 @@ class CreateArticleController extends Controller
             $brandtypeid=[];
             $brandid=[];
         }
-        return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thisbrandid','brandcid','brandtypeid','brandid','collectcontent'));
+        return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thisbrandid','brandcid','brandtypeid','brandid','collectcontent','thiwebinfo'));
     }
 
     /**获取当前品牌id
