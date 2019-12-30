@@ -6,6 +6,7 @@ use App\AdminModel\ArticleCategory;
 use App\AdminModel\ArticleCollection;
 use App\AdminModel\ArticleType;
 use App\AdminModel\BrandInfo;
+use App\AdminModel\ConditionData;
 use App\AdminModel\ContentSource;
 use App\AdminModel\TitleCategory;
 use App\AdminModel\TitleSource;
@@ -48,6 +49,14 @@ class CreateArticleController extends Controller
             $minusedid=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->min('used');
             $randomarticle=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->where('used',$minusedid)->orderBy('used','asc')->inRandomOrder()->first(['id','content','used']);
             $articlecontents[ArticleType::where('id',$content_type)->value('content_type')]=$randomarticle;
+           //加盟条件处理
+            if ($content_type==4){
+                $minconditionusedid=ConditionData::min('used');
+                $conditionhead=ConditionData::where('used',$minconditionusedid)->orderBy('used','asc')->inRandomOrder()->first(['id','body','used']);
+                $randomarticle->content=$conditionhead->body.$randomarticle->content;
+                $articlecontents[ArticleType::where('id',$content_type)->value('content_type')]=$randomarticle;
+                ConditionData::where('id',$conditionhead->id)->update(['used'=>$conditionhead->used+1]);
+            }
             if(!empty($randomarticle)){
                 ContentSource::where('id',$randomarticle->id)->update(['used'=>$randomarticle->used+1]);
             }

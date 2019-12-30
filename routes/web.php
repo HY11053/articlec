@@ -122,5 +122,11 @@ Route::middleware(['auth'])->group(function ()
     Route::post('/baidunpl/getecnet', 'BaiduNlpController@Ecnet');
     //others
     Route::get('/brandmain/lists', 'BrandInfoController@brandMainLists');
+    Route::get('/condition/lists', 'ConditionController@conditionLists');
+    Route::get('/condition/add', 'ConditionController@conditionAdd');
+    Route::post('/condition/add', 'ConditionController@postConditionAdd')->name('conditionadd');
+    Route::get('/condition/edit/{id}', 'ConditionController@conditionEdit');
+    Route::put('/condition/edit/{id}', 'ConditionController@postConditionEdit')->name('conditionedit');
+    Route::get('condition/delete/{id}', 'ConditionController@delete');
 
 });

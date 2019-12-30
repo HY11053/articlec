@@ -97,14 +97,14 @@
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i>
-                    <span>临时采集数据</span>
+                    <span>加盟条件管理</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li @if(Request::getRequestUri()=='/admin/makesitemap')class="active"@endif><a href="#"><i class="fa fa-circle-o"></i> 待开发中</a></li>
-                    <li @if(Request::getRequestUri()=='/admin/phone')class="active"@endif><a href="#"><i class="fa fa-circle-o"></i> 待开发中</a></li>
+                    <li @if(Request::getRequestUri()=='/condition/lists')class="active"@endif><a href="/condition/lists"><i class="fa fa-circle-o"></i> 加盟条件列表</a></li>
+                    <li @if(Request::getRequestUri()=='/condition/add')class="active"@endif><a href="/condition/add"><i class="fa fa-circle-o"></i> 加盟条件添加</a></li>
                 </ul>
             </li>
             <li class="treeview">
