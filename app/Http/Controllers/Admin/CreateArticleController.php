@@ -165,7 +165,8 @@ class CreateArticleController extends Controller
         $website=$request->website;
         $thiwebinfo=Websites::where('id',$request->website)->first();
         $websites=Websites::where('isused',1)->get(['id','webname','weburl']);
-        return view('admin.postcreate_brandarticle',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thiwebinfo'));
+        $brandpay='';
+        return view('admin.postcreate_brandarticle',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thiwebinfo','brandpay'));
     }
 
     /**违禁词检测

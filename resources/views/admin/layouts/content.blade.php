@@ -9,7 +9,7 @@
             @if(isset($articlecontent->content))
                 <h1>{{$articlecontent->id}}</h1>
                 @foreach(explode('@@',$articlecontent->content) as $content)
-                    <p>{{str_replace('{}',$createinfo->get('brand'),$content)}}</p>
+                    <p>{{str_replace(['{}','$$'],[$createinfo->get('brand'),$brandpay],$content)}}</p>
                 @endforeach
             @endif
         @endif
