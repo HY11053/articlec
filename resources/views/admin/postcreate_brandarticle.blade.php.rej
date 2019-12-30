@@ -1,0 +1,31 @@
+diff a/resources/views/admin/postcreate_brandarticle.blade.php b/resources/views/admin/postcreate_brandarticle.blade.php	(rejected hunks)
+@@ -146,6 +146,29 @@
+                                         {{Form::text('keywords',null, array('class' => 'form-control  pull-right','id'=>'keywords','placeholder'=>'请输入文档关键字,使用,分割','required'=>'required'))}}
+                                     </div>
+                                 </div>
++                                @if($thiwebinfo->webname=='51xxsp' || $thiwebinfo->webname=='xiuxianshipin' ||  $thiwebinfo->webname=='jjedu')
++                                    <div class="form-group col-md-12">
++                                        {{Form::label('shorttitle', '简略标题', array('class' => 'control-label col-md-1'))}}
++                                        <div class="input-group col-md-4">
++                                            <div class="input-group-addon"><i class="fa fa-ticket" style="width:10px;"></i></div>
++                                            {{Form::text('shorttitle',null, array('class' => 'form-control  pull-right','id'=>'shorttitle','placeholder'=>'短标题','required'=>'required'))}}
++                                        </div>
++                                    </div>
++                                    <div class="form-group col-md-12">
++                                        {{Form::label('tags', 'tag标签', array('class' => 'control-label col-md-1'))}}
++                                        <div class="input-group col-md-4">
++                                            <div class="input-group-addon"><i class="fa fa-bullseye" style="width:10px;"></i></div>
++                                            {{Form::text('tags',null, array('class' => 'form-control  pull-right','id'=>'tags','placeholder'=>'文档tag标签','required'=>'required'))}}
++                                        </div>
++                                    </div>
++                                    <div class="form-group col-md-12">
++                                        {{Form::label('brandpsp', '品牌特色', array('class' => 'control-label col-md-1'))}}
++                                        <div class="input-group col-md-4">
++                                            <div class="input-group-addon"><i class="fa fa-meh-o" style="width:10px;"></i></div>
++                                            {{Form::text('brandpsp',null, array('class' => 'form-control  pull-right','id'=>'brandpsp','placeholder'=>'品牌特色','required'=>'required'))}}
++                                        </div>
++                                    </div>
++                                @endif
+                                 <div class="form-group col-md-12">
+                                     {{Form::label('brandcid', '品牌所属大类', array('class' => 'col-md-1 control-label'))}}
+                                     <div class="input-group col-md-4">

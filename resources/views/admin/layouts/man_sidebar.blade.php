@@ -144,6 +144,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li @if(Request::getRequestUri()=='/brandinfo/lists')class="active"@endif><a href="/brandinfo/lists"><i class="fa fa-circle-o"></i> 品牌介绍列表</a></li>
+                    <li @if(Request::getRequestUri()=='/brandmain/lists')class="active"@endif><a href="/brandmain/lists"><i class="fa fa-circle-o"></i> 品牌名称列表</a></li>
                 </ul>
             </li>
             <li class="treeview">

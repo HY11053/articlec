@@ -1,0 +1,15 @@
+diff a/.idea/workspace.xml b/.idea/workspace.xml	(rejected hunks)
+@@ -2,12 +2,7 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="c81e8df5-53fe-436b-87e9-ed4c5220fee1" name="Default Changelist" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/u88article.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/u88article.iml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/resources/views/admin/articlecategoryanysis.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/articlecategoryanysis.blade.php" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/resources/views/admin/postcreate_brandarticle.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/postcreate_brandarticle.blade.php" afterDir="false" />
+     </list>
+     <ignored path="$PROJECT_DIR$/vendor/composer/" />
+     <ignored path="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir/" />
