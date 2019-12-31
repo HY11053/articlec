@@ -123,4 +123,12 @@ class ArticleController extends Controller
         ContentSource::where('id',$id)->delete();
         return redirect(action('ArticleController@ArticleTypeLists',['id'=>$type]));
     }
+
+    public function SearchArticleSource(Request $request){
+        $articles=ContentSource::orderBy('id','desc')->where('content','like','%'.$request->contents.'%')->orderBy('id','desc')->paginate(30);
+        $articleCategories=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
+        $articleTypes=ArticleType::orderBy('id','desc')->pluck('content_type','id');
+        $arguments=$request->all();
+        return view('admin.searcharticlelists',compact('articles','articleCategories','articleTypes','arguments'));
+    }
 }

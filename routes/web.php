@@ -34,12 +34,14 @@ Route::middleware(['auth'])->group(function ()
     Route::put('/brandinfo/edit/{id}','BrandInfoController@PostBrandInfoEdit')->name('brandinfoedit');
     Route::get('/brandinfo/delete/{id}','BrandInfoController@Delete');
     Route::post('/search/brand', 'BrandInfoController@BrandSearch');
+    Route::post('/search/contentsource', 'BrandInfoController@BrandSearch');
     //内容分类
     Route::get('/article/types','ArticleTypeController@ArticletypeLists')->name('articletypelists');
     Route::get('/article/type/add','ArticleTypeController@ArticletypeAdd');
     Route::post('/article/type/add','ArticleTypeController@PostArticletypeAdd')->name('articletypeadd');
     Route::get('/article/type/edit/{id}','ArticleTypeController@ArticletypeEdit');
     Route::put('/article/type/edit/{id}','ArticleTypeController@PostArticletypeEdit')->name('articletypeedit');
+    Route::post('/search/contentsource', 'ArticleController@SearchArticleSource');
     //内容数据导入
     Route::get('/article/articletype/list/{id}', 'ArticleController@ArticleTypeLists')->name('articlelisttype');
     Route::get('/article/fmcontentimport', 'ArticleController@FmImportContents');

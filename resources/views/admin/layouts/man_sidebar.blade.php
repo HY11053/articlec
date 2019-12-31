@@ -12,10 +12,10 @@
             </div>
         </div>
         <!-- search form -->
-        <form action="/search/brand" method="post" class="sidebar-form">
+        <form action="/search/contentsource" method="post" class="sidebar-form" target="_blank">
             {{ csrf_field() }}
             <div class="input-group">
-                <input type="text" name="brandname" class="form-control" autocomplete="off" placeholder="输入品牌名称...">
+                <input type="text" name="contents" class="form-control" autocomplete="off" placeholder="输入内容片段...">
                 <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
