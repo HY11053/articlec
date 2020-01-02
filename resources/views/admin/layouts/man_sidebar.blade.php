@@ -56,10 +56,10 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa  fa-file-word-o"></i>
+                    <i class="fa  fa-rebel"></i>
                     <span>内容生成操作</span>
                     <span class="pull-right-container">
-              <span class="label label-primary pull-right">generate</span>
+              <span class="label label-danger pull-right">generate</span>
             </span>
                 </a>
                 <ul class="treeview-menu">
@@ -81,7 +81,7 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-arrows-alt"></i>
                     <span>标题内容管理</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -96,7 +96,7 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-ils"></i>
                     <span>加盟条件管理</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>

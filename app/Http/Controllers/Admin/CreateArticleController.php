@@ -23,9 +23,13 @@ class CreateArticleController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function CreateArticle(){
-        $articletypes=ArticleType::orderBy('sortrank','asc')->get(['id','content_type']);
+        //行业分类
         $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
+        //标题分类
         $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
+        //内容分类
+        $articletypes=ArticleType::orderBy('sortrank','asc')->get(['id','content_type']);
+        //绑定站点
         $websites=Websites::where('isused',1)->get(['id','webname']);
         return view('admin.create_article',compact('articletypes','articlecategorys','titleTypes','websites'));
     }
@@ -40,7 +44,7 @@ class CreateArticleController extends Controller
         $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
         $articletypes=ArticleType::orderBy('sortrank','asc')->get(['id','content_type']);
         $createinfo=collect(['brand'=>$request->brand,'categorytypeid'=>$request->categorytypeid,'title_typeid'=>$request->title_typeid,'content_type'=>$request->content_type]);
-        $brandinfos=BrandInfo::where('brandname','like',$request->brand.'%')->inRandomOrder()->value('brandinfo');//strip_tags(
+        $brandinfos=BrandInfo::where('brandname','like','%'.$request->brand.'%')->inRandomOrder()->value('brandinfo');
         $collectcontent=strip_tags(ArticleCollection::where('brandname','like','%'.$request->brand.'%')->orWhere('title','like','%'.$request->brand.'%')->inRandomOrder()->value('body'));
         $title=TitleSource::where('typeid',$request->title_typeid)->inRandomOrder()->value('title');
         $content_types=$request->content_type;
@@ -83,6 +87,58 @@ class CreateArticleController extends Controller
         }
         return view('admin.postcreate_article',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thisbrandid','brandcid','brandtypeid','brandid','collectcontent','thiwebinfo','brandpay'));
     }
+
+
+    /**品牌文档生成创建
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function CreateBrandArticle (){
+        $articletypes=ArticleType::orderBy('sortrank','asc')->get(['id','content_type']);
+        $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
+        $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
+        $websites=Websites::where('isused',1)->get(['id','webname']);
+        return view('admin.create_brandarticle',compact('articletypes','articlecategorys','titleTypes','websites'));
+    }
+
+    /**品牌文档推送处理
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function PostCreateBrandArticle(Request $request){
+        $this->ArticletitleCheck($request->brand);
+        $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
+        $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
+        $articletypes=ArticleType::orderBy('sortrank','asc')->get(['id','content_type']);
+        $createinfo=collect(['brand'=>$request->brand,'categorytypeid'=>$request->categorytypeid,'title_typeid'=>$request->title_typeid,'content_type'=>$request->content_type]);
+        $brandinfos=BrandInfo::where('brandname','like','%'.$request->brand.'%')->inRandomOrder()->value('brandinfo');//strip_tags(
+        $title=TitleSource::where('typeid',$request->title_typeid)->inRandomOrder()->value('title');
+        $content_types=$request->content_type;
+        $articlecontents=[];
+        foreach ($content_types as $content_type){
+            $minusedid=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->min('used');
+            $randomarticle=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->where('used',$minusedid)->orderBy('used','asc')->inRandomOrder()->first(['id','content','used']);
+            $articlecontents[ArticleType::where('id',$content_type)->value('content_type')]=$randomarticle;
+            //加盟条件处理
+            if ($content_type==4 && !empty($randomarticle)){
+                $minconditionusedid=ConditionData::min('used');
+                $conditionhead=ConditionData::where('used',$minconditionusedid)->orderBy('used','asc')->inRandomOrder()->first(['id','body','used']);
+                if (!empty($conditionhead)){
+                    $randomarticle->content=$conditionhead->body.$randomarticle->content;
+                    $articlecontents[ArticleType::where('id',$content_type)->value('content_type')]=$randomarticle;
+                    ConditionData::where('id',$conditionhead->id)->update(['used'=>$conditionhead->used+1]);
+                }
+            }
+            if(!empty($randomarticle)){
+                ContentSource::where('id',$randomarticle->id)->update(['used'=>$randomarticle->used+1]);
+            }
+        }
+        $website=$request->website;
+        $thiwebinfo=Websites::where('id',$request->website)->first();
+        $websites=Websites::where('isused',1)->get(['id','webname','weburl']);
+        $brandpay='';
+        return view('admin.postcreate_brandarticle',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thiwebinfo','brandpay'));
+    }
+
 
     /**获取当前品牌id
      * @param $websites
@@ -138,56 +194,6 @@ class CreateArticleController extends Controller
         $weburl=trim(Websites::where('id',$website)->value('weburl'),'/');
         $brandpayResponse = $client->get($weburl.'/api/getbdpayapi/?id='.$brandid,['verify' => false])->getBody()->getContents();
         return $brandpayResponse;
-    }
-
-    /**品牌文档生成创建
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function CreateBrandArticle (){
-        $articletypes=ArticleType::orderBy('sortrank','asc')->get(['id','content_type']);
-        $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
-        $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
-        $websites=Websites::where('isused',1)->get(['id','webname']);
-        return view('admin.create_brandarticle',compact('articletypes','articlecategorys','titleTypes','websites'));
-    }
-
-    /**品牌文档推送处理
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function PostCreateBrandArticle(Request $request){
-        $this->ArticletitleCheck($request->brand);
-        $articlecategorys=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
-        $titleTypes=TitleCategory::orderBy('id','desc')->pluck('type','id');
-        $articletypes=ArticleType::orderBy('sortrank','asc')->get(['id','content_type']);
-        $createinfo=collect(['brand'=>$request->brand,'categorytypeid'=>$request->categorytypeid,'title_typeid'=>$request->title_typeid,'content_type'=>$request->content_type]);
-        $brandinfos=BrandInfo::where('brandname','like',$request->brand.'%')->inRandomOrder()->value('brandinfo');//strip_tags(
-        $title=TitleSource::where('typeid',$request->title_typeid)->inRandomOrder()->value('title');
-        $content_types=$request->content_type;
-        $articlecontents=[];
-        foreach ($content_types as $content_type){
-            $minusedid=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->min('used');
-            $randomarticle=ContentSource::where('typeid',$request->categorytypeid)->where('content_type',$content_type)->where('used',$minusedid)->orderBy('used','asc')->inRandomOrder()->first(['id','content','used']);
-            $articlecontents[ArticleType::where('id',$content_type)->value('content_type')]=$randomarticle;
-            //加盟条件处理
-            if ($content_type==4 && !empty($randomarticle)){
-                $minconditionusedid=ConditionData::min('used');
-                $conditionhead=ConditionData::where('used',$minconditionusedid)->orderBy('used','asc')->inRandomOrder()->first(['id','body','used']);
-                if (!empty($conditionhead)){
-                    $randomarticle->content=$conditionhead->body.$randomarticle->content;
-                    $articlecontents[ArticleType::where('id',$content_type)->value('content_type')]=$randomarticle;
-                    ConditionData::where('id',$conditionhead->id)->update(['used'=>$conditionhead->used+1]);
-                }
-            }
-            if(!empty($randomarticle)){
-                ContentSource::where('id',$randomarticle->id)->update(['used'=>$randomarticle->used+1]);
-            }
-        }
-        $website=$request->website;
-        $thiwebinfo=Websites::where('id',$request->website)->first();
-        $websites=Websites::where('isused',1)->get(['id','webname','weburl']);
-        $brandpay='';
-        return view('admin.postcreate_brandarticle',compact('articletypes','articlecategorys','titleTypes','brandinfos','articlecontents','createinfo','title','websites','website','thiwebinfo','brandpay'));
     }
 
     /**违禁词检测

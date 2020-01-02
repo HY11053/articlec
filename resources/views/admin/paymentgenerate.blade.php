@@ -53,7 +53,11 @@
                                     {{Form::label('brandname', '品牌名称', array('class' => 'control-label col-md-1'))}}
                                     <div class="input-group col-md-4">
                                         <div class="input-group-addon"><i class="fa fa-user" style="width:10px;"></i></div>
-                                        {{Form::text('brandname',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'品牌名称','required'=>'required'))}}
+                                        @if(isset($brandname))
+                                            {{Form::text('brandname',$brandname, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'品牌名称','required'=>'required'))}}
+                                        @else
+                                            {{Form::text('brandname',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'品牌名称','required'=>'required'))}}
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -154,7 +158,7 @@
 
                             <div class="timeline-body" id="collectcontent">
                                 <div class="timeline-body">
-                                    一点点奶茶的加盟费用及整店的投资总额根据不同的区域和店面类型，整体的投入会有移动的差异，
+                                    {{$brandname}}的加盟费用及整店的投资总额根据不同的区域和店面类型，整体的投入会有移动的差异，
                                     @php
                                         echo "<p>一线城市上海、北京、广州：";
                                             foreach ($paymentinfos as $key=>$paymentinfo){

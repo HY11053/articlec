@@ -73,6 +73,11 @@ class BrandInfoController extends Controller
         return redirect(action('BrandInfoController@BrandInfoLists'));
     }
 
+
+    /**搜索品牌简介
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function BrandSearch(Request $request){
         $brandinfolists=BrandInfo::orderBy('id','desc')->where('brandname','like','%'.$request->brandname.'%')->paginate(100);
         return view('admin.brandinfolists',compact('brandinfolists'));

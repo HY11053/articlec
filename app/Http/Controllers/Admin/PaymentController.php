@@ -66,11 +66,16 @@ class PaymentController extends Controller
         return view('admin.paymentgenerate',compact('paymentnavs','paymentinfos'));
     }
 
+    /**加盟费用post提交生成处理
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function PostPaymentgenerate(Request $request){
+        $brandname=$request->brandname;
         $paymentnavs=PaymentCategory::orderBy('id','desc')->pluck('category','id');
         $paymentinfos=array_unique(explode(',',PaymentContent::where('typeid',$request->typeid)->value('content')));
         $typeid=$request->typeid;
-        return view('admin.paymentgenerate',compact('paymentinfos','paymentnavs','typeid'));
+        return view('admin.paymentgenerate',compact('paymentinfos','paymentnavs','typeid','brandname'));
 
     }
 

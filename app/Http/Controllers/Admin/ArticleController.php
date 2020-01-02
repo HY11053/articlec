@@ -124,6 +124,10 @@ class ArticleController extends Controller
         return redirect(action('ArticleController@ArticleTypeLists',['id'=>$type]));
     }
 
+    /**内容模型搜索
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function SearchArticleSource(Request $request){
         $articles=ContentSource::orderBy('id','desc')->where('content','like','%'.$request->contents.'%')->orderBy('id','desc')->paginate(30);
         $articleCategories=ArticleCategory::orderBy('id','desc')->pluck('typename','id');
