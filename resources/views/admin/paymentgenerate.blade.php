@@ -157,6 +157,7 @@
                             <h3 class="timeline-header">加盟费用生成结果样式预览</h3>
 
                             <div class="timeline-body" id="collectcontent">
+                                @if(isset($brandname))
                                 <div class="timeline-body">
                                     {{$brandname}}的加盟费用及整店的投资总额根据不同的区域和店面类型，整体的投入会有移动的差异，
                                     @php
@@ -193,6 +194,7 @@
 
 
                                 </div>
+                                @endif
                             </div>
                             <div class="timeline-footer">
                                 <a class="btn btn-primary btn-sm" id="regencollect">复制生成结果</a>
