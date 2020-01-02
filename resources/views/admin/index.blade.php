@@ -30,8 +30,8 @@
                 <span class="info-box-icon bg-red"><i class="ion ion-ios-people-outline"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">前台会员数</span>
-                    <span class="info-box-number">{{\App\User::count()}}</span>
+                    <span class="info-box-text">品牌介绍总数</span>
+                    <span class="info-box-number">{{\App\AdminModel\BrandInfo::count()}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -47,7 +47,7 @@
                 <span class="info-box-icon bg-green"><i class="ion ion-bonfire"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">行业总数</span>
+                    <span class="info-box-text">行业分类总数</span>
                     <span class="info-box-number">{{\App\AdminModel\ArticleCategory::count()}}</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -60,7 +60,7 @@
                 <span class="info-box-icon bg-yellow"><i class="ion ion-ios-pulse"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">内容模型类型数</span>
+                    <span class="info-box-text">内容分类类型数</span>
                     <span class="info-box-number">{{\App\AdminModel\ArticleType::count()}}</span>
                 </div>
                 <!-- /.info-box-content -->
